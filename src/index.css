@@ -24,3 +24,16 @@ code {
   justify-content: center;
   align-items: center;
 }
+
+.lll {
+  width: 40px !important;
+  height: 40px !important;
+  border: 1px solid #000 !important;
+  border-radius: 5px;
+  font-size: 20px;
+}
+.asw {
+  height: 50px;
+  justify-content: center !important;
+  align-items: center !important;
+}

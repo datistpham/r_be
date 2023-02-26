@@ -1,8 +1,14 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import swal from 'sweetalert'
+import login from '../../api/login'
 import "./Login.scss"
 
 const Login = () => {
+  const navigate= useNavigate()
+  const [email, setEmail] =useState("")
+  const [password, setPassword]= useState("")
+
   return (
     <div>
         <div className={"c-flex-center"} style={{position: "fixed", top: 0, left: 0, zIndex: 999, width: "100%", height: "100%", backgroundImage: "url(https://appetizer-client.vercel.app/static/media/bg-login.59c329f0.png)", backgroundSize: "cover", backgroundRepeat: "no-repeat"}}>
@@ -14,20 +20,34 @@ const Login = () => {
                     <p className="text text-normal">New user? <span><Link to={"/signup"} className="text text-links">Create an account</Link></span>
                     </p>
                     </div>
-                    <form name="signin" className="form">
+                    <div name="signin" className="form">
                     <div className="input-control">
                         <label htmlFor="email" className="input-label" hidden>Email Address</label>
-                        <input type="email" name="email" id="email" className="input-field" placeholder="Email Address" />
+                        <input value={email} onChange={(e)=> setEmail(e.target.value)} type="email" name="email" id="email" className="input-field" placeholder="Email Address" />
                     </div>
                     <div className="input-control">
                         <label htmlFor="password" className="input-label" hidden>Password</label>
-                        <input type="password" name="password" id="password" className="input-field" placeholder="Password" />
+                        <input value={password} onChange={(e)=> setPassword(e.target.value)} type="password" name="password" id="password" className="input-field" placeholder="Password" />
                     </div>
                     <div className="input-control">
-                        <a href="#" className="text text-links">Forgot Password</a>
-                        <input type="submit" name="submit" value={"Login"} className="input-submit" defaultValue="Sign In" disabled />
+                        <a href className="text text-links">Forgot Password</a>
+                        <input onClick={async (e)=> {
+                            e.preventDefault()
+                            const result= await login(email, password)
+                            if(result?.login=== false ) {
+                                swal("Thông báo", "Đăng nhập thất bại, email hoặc mật khẩu không chính xác", "success")
+                            }
+                            else if(result?.login=== true) {
+                                swal("Thông báo", "Đăng nhập thành công", "success").then(()=> navigate("/"))
+
+                            }
+                            else {
+                                swal("Thông báo", "Error")
+
+                            }
+                        }} type="submit" name="submit" value={"Login"} className="input-submit" defaultValue="Sign In" />
                     </div>
-                    </form>
+                    </div>
                     <div className="striped">
                     <span className="striped-line" />
                     <span className="striped-text">Or</span>
