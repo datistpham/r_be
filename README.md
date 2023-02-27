@@ -13,4 +13,4 @@
 
 # step 3: type in terimal npm install nodemon
 
-# step 4: type in terimal npm start
+# step 4: type in terimal npm start.

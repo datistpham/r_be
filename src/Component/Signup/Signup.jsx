@@ -17,6 +17,10 @@ const Signup = () => {
   const [verifyCode, setVerifyCode]= useState(0)
   const navigate= useNavigate()
   const [open, setOpen]= useState(false)
+  const validatePasswordRegex= /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/
+  const validatePassword= (str)=> {
+    return validatePasswordRegex.test(str)
+  }
   return (
     <div>
         <div style={{position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)", zIndex: 1000, width: "100%", padding: 10, marginTop: 50}}>
@@ -29,43 +33,48 @@ const Signup = () => {
                     </p>
                     </div>
                     <form name="signin" className="form">
-                    <div className="input-control">
-                        <label htmlFor="email" className="input-label" hidden>Email Address</label>
-                        <input value={email} onChange={(e)=> setEmail(e.target.value)} type="email" name="email" id="email" className="input-field" placeholder="Email Address" />
-                    </div>
-                    <div className="input-control">
-                        <label htmlFor="password" className="input-label" hidden>Password</label>
-                        <input value={password} onChange={(e)=> setPassword(e.target.value)} type="password" name="Password" id="Password" className="input-field" placeholder="Password" />
-                    </div>
-                    <div className="input-control">
-                        <label htmlFor="Password" className="input-label" hidden>Confirm password</label>
-                        <input value={confirmPassword} onChange={(e)=> setConfirmPassword(e.target.value)} type="password" name="Password" id="Password" className="input-field" placeholder="Confirm password" />
-                    </div>
-                    <div className="input-control">
-                        <label htmlFor="First name" className="input-label" hidden>First name</label>
-                        <input value={firstName} onChange={(e)=> setFirstName(e.target.value)} type="text" name="surname" id="surname" className="input-field" placeholder="Firstname" />
-                    </div>
-                    <div className="input-control">
-                        <label htmlFor="Lastname" className="input-label" hidden>Lastname</label>
-                        <input value={lastName} onChange={(e)=> setLastName(e.target.value)} type="text" name="lastname" id="lastname" className="input-field" placeholder="Lastname" />
-                    </div>
-                    <div className="input-control">
-                        <div></div>
-                        <input onClick={async (e)=> {
-                            e.preventDefault()
+                        <div className="input-control">
+                            <label htmlFor="email" className="input-label" hidden>Email Address</label>
+                            <input value={email} onChange={(e)=> setEmail(e.target.value)} type="email" name="email" id="email" className="input-field" placeholder="Email Address" />
+                        </div>
+                        <div className="input-control">
+                            <label htmlFor="password" className="input-label" hidden>Password</label>
+                            <input value={password} onChange={(e)=> setPassword(e.target.value)} type="password" name="Password" id="Password" className="input-field" placeholder="Password" />
+                        </div>
+                        <div className="input-control">
+                            <label htmlFor="Password" className="input-label" hidden>Confirm password</label>
+                            <input value={confirmPassword} onChange={(e)=> setConfirmPassword(e.target.value)} type="password" name="Password" id="Password" className="input-field" placeholder="Confirm password" />
+                        </div>
+                        <div className="input-control">
+                            <label htmlFor="First name" className="input-label" hidden>First name</label>
+                            <input value={firstName} onChange={(e)=> setFirstName(e.target.value)} type="text" name="surname" id="surname" className="input-field" placeholder="Firstname" />
+                        </div>
+                        <div className="input-control">
+                            <label htmlFor="Lastname" className="input-label" hidden>Lastname</label>
+                            <input value={lastName} onChange={(e)=> setLastName(e.target.value)} type="text" name="lastname" id="lastname" className="input-field" placeholder="Lastname" />
+                        </div>
+                        <div className="input-control">
+                            <div></div>
+                            <input onClick={async (e)=> {
+                                e.preventDefault()
+                                if(validatePassword(password) === false ) {
+                                    swal("Thông báo", "Mật khẩu phải có ít nhất 8 ký tự gồm chữ hoa, chữ thường và chữ số")
+                                }
+                                else {
 
-                            const result= await signup(email, password, firstName, lastName)
-                            if(result?.verify=== "pending") {
-                                setOpen(()=> true)
-                            }
-                            else if(result?.exist=== true) {
-                                swal("","Email is exist, please choose another email")
-                            }
-                            else {
-                                swal("", "Error")
-                            }
-                        }} type="submit" name="submit" value={"Sign up"} className="input-submit" defaultValue="Sign Up" />
-                    </div>
+                                    const result= await signup(email, password, firstName, lastName)
+                                    if(result?.verify=== "pending") {
+                                        setOpen(()=> true)
+                                    }
+                                    else if(result?.exist=== true) {
+                                        swal("","Email is exist, please choose another email")
+                                    }
+                                    else {
+                                        swal("", "Error")
+                                    }
+                                }
+                            }} type="submit" name="submit" value={"Sign up"} className="input-submit" defaultValue="Sign Up" />
+                        </div>
                     </form>
                     <div className="striped">
                     <span className="striped-line" />

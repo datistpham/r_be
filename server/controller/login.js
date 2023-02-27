@@ -10,7 +10,7 @@ const login= expressAsyncHandler(async (req, res)=> {
             return res.status(200).json({login: true, id_user: rows[0].id_user})
         }
         else {
-            return res.status(401).json({login: false})
+            return res.status(200).json({login: false})
         }
     } catch (error) {
         console.log(error)
