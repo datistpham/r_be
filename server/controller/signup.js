@@ -1,6 +1,8 @@
 const connection = require("../database/connect")
 const expressAsyncHandler= require('express-async-handler')
 const verifyMail = require("../utils/mail")
+// eslint-disable-next-line
+const md5 = require("md5")
 
 function randomIntFromInterval(min, max) { // min and max included 
     return Math.floor(Math.random() * (max - min + 1) + min)
@@ -14,6 +16,7 @@ const signup= expressAsyncHandler(async (req, res)=> {
         }
         else {
             const verifyCode= randomIntFromInterval(100000, 999999)
+            // eslint-disable-next-line
             const [rows]= await connection.execute("INSERT INTO verify_email VALUES (?, ?) ON DUPLICATE KEY UPDATE code= ?", [email, verifyCode, verifyCode])
             const result= await verifyMail(email, verifyCode)
             return res.status(200).json({...result, verify: "pending"})

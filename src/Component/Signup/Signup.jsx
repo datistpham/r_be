@@ -83,19 +83,19 @@ const Signup = () => {
                     </div>
                     <div className="method">
                     <div className="method-control">
-                        <a href="#" className="method-action">
+                        <a href="/" className="method-action">
                         <i className="ion ion-logo-google" />
                         <span>Sign up with Google</span>
                         </a>
                     </div>
                     <div className="method-control">
-                        <a href="#" className="method-action">
+                        <a href="/" className="method-action">
                         <i className="ion ion-logo-facebook" />
                         <span>Sign up with Facebook</span>
                         </a>
                     </div>
                     <div className="method-control">
-                        <a href="#" className="method-action">
+                        <a href="/" className="method-action">
                         <i className="ion ion-logo-apple" />
                         <span>Sign up with Apple</span>
                         </a>

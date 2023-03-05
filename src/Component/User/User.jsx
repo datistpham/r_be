@@ -3,8 +3,11 @@ import Cookies from 'js-cookie'
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppContext } from '../../App'
+import InfoUser from './InfoUser'
+
 const User = () => {
   const navigate= useNavigate()
+  // eslint-disable-next-line
   const {auth, user}= useContext(AppContext)
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -22,7 +25,7 @@ const User = () => {
 
   return (
     <div className={"c-flex-center"} style={{gap: 5}}>
-        <img style={{cursor: "pointer"}} src="https://res.cloudinary.com/cockbook/image/upload/v1676558788/Screenshot_2023-02-16_214551_j4zirx.png" alt="" />
+        <img onClick={()=> navigate("/cart")} style={{cursor: "pointer"}} src="https://res.cloudinary.com/cockbook/image/upload/v1676558788/Screenshot_2023-02-16_214551_j4zirx.png" alt="" />
         {
           auth=== false && 
           <img onClick={()=> navigate("/login")} style={{cursor: "pointer"}} src="https://res.cloudinary.com/cockbook/image/upload/v1676558788/Screenshot_2023-02-16_214603_rbdxuo.png" alt="" />
@@ -40,6 +43,8 @@ const User = () => {
               'aria-labelledby': 'basic-button',
             }}
           >
+          <MenuItem onClick={()=> {
+            }}><InfoUser handleClose={handleClose} /></MenuItem>
             <MenuItem onClick={()=> {
               handleClose()
               Logout()
