@@ -9,6 +9,8 @@ import authUser from './api/auth';
 import Cart from './Component/Cart/Cart';
 import Admin from './Component/Admin/Admin';
 import Staff from './Component/Staff/Staff';
+import Order from './Component/Order/Order';
+import Menu from './Component/Menu/Menu';
 
 export const AppContext= createContext()
 function App() {
@@ -37,6 +39,8 @@ function App() {
           <Route path={"/cart"} element={<Cart />} />
           <Route path={"/admin/*"} element={<Admin />} />
           <Route path={"/staff/*"} element={<Staff />} />
+          <Route path={"/order/*"} element={<Order />} /> 
+          <Route path={"/menu/*"} element={<Menu />} />
         </Routes>
       </Router>
     </AppContext.Provider>
