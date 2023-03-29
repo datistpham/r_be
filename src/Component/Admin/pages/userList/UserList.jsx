@@ -1,42 +1,37 @@
 import "./userList.css";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-import { userRows } from "../../dummyData";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+// import { userRows } from "../../dummyData";
+import { useEffect, useState } from "react";
+import UpdateUser from "./updateUser";
+import swal from "sweetalert";
+import delete_user from "../../../../api/admin/delete_user";
+import get_list_user from "../../../../api/admin/get_list_user";
 
 export default function UserList() {
-  const [data, setData] = useState(userRows);
-
+  const [data, setData] = useState([]);
+  const [change, setChange]= useState(false)
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
   };
-  
+  useEffect(()=> {
+    (async()=> {
+      const result= await get_list_user()
+      return setData(result)
+    })()
+  }, [change])
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "id", headerName: "ID", width: 200 },
     {
-      field: "user",
-      headerName: "User",
-      width: 200,
-      renderCell: (params) => {
-        return (
-          <div className="userListUser">
-            <img className="userListImg" src={params.row.avatar} alt="" />
-            {params.row.username}
-          </div>
-        );
-      },
-    },
-    { field: "email", headerName: "Email", width: 200 },
-    {
-      field: "status",
-      headerName: "Status",
+      field: "first_name",
+      headerName: "Họ",
       width: 120,
     },
+    { field: "last_name", headerName: "Tên", width: 120 },
     {
-      field: "transaction",
-      headerName: "Transaction Volume",
-      width: 160,
+      field: "email",
+      headerName: "Email",
+      width: 200,
     },
     {
       field: "action",
@@ -45,12 +40,25 @@ export default function UserList() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/admin/user/" + params.row.id}>
-              <button className="userListEdit">Edit</button>
-            </Link>
+            <UpdateUser {...params.row} setChange={setChange} />
             <DeleteOutline
               className="userListDelete"
-              onClick={() => handleDelete(params.row.id)}
+              onClick={() => {
+                swal("Thông báo", "Bạn có muốn xóa người dùng này không", {buttons: {
+                  delete: "Delete",
+                  cancel: "Cancel"
+                }})
+                .then(async value=> {
+                  if(value=== "delete") {
+                    await delete_user(params.row?.id)
+                    handleDelete(params.row.id)
+                  } 
+                  else {
+                    return null
+                  }
+                })
+                
+              }}
             />
           </>
         );
@@ -60,12 +68,14 @@ export default function UserList() {
 
   return (
     <div className="userList">
+      
       <DataGrid
         rows={data}
         disableSelectionOnClick
         columns={columns}
-        pageSize={8}
-        checkboxSelection
+        pageSize={5}
+        pagination={true}
+        paginationMode="client"
       />
     </div>
   );

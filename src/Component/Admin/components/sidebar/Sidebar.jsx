@@ -8,14 +8,13 @@ import {
   DynamicFeed,
   WorkOutline,
   // eslint-disable-next-line
-  Report,
 } from "@material-ui/icons";
 import { NavLink as Link } from "react-router-dom";
 import LoyaltyIcon from '@mui/icons-material/Loyalty';
-import ReceiptIcon from '@mui/icons-material/Receipt';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import LiquorIcon from '@mui/icons-material/Liquor';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
+import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 
 export default function Sidebar() {
   return (
@@ -73,18 +72,30 @@ export default function Sidebar() {
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Quản lý nhà hàng</h3>
           <ul className="sidebarList">
-            <li className="sidebarListItem">
-              <LiquorIcon className="sidebarIcon" />
+          <Link to="/admin/banquet-hall" className="link">
+              {
+                (({isActive}) => <li className={`sidebarListItem ${isActive=== true ? "active" : ""}`}>
+                <LiquorIcon className="sidebarIcon" />
                 Sảnh tiệc
-            </li>
-            <li className="sidebarListItem">
-              <FastfoodIcon className="sidebarIcon" />
+                </li>)
+              }
+            </Link>
+            <Link to="/admin/dish" className="link">
+              {
+                (({isActive}) => <li className={`sidebarListItem ${isActive=== true ? "active" : ""}`}>
+                <FastfoodIcon className="sidebarIcon" />
                 Món ăn
-            </li>
-            <li className="sidebarListItem">
-              <ReceiptIcon className="sidebarIcon" />
-                Hóa đơn
-            </li>
+                </li>)
+              }
+            </Link>
+            <Link to="/admin/menu" className="link">
+              {
+                (({isActive}) => <li className={`sidebarListItem ${isActive=== true ? "active" : ""}`}>
+                <RestaurantMenuIcon className="sidebarIcon" />
+                Menu
+                </li>)
+              }
+            </Link>
           </ul>
         </div>
         <div className="sidebarMenu">

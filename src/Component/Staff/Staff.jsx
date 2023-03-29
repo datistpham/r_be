@@ -8,7 +8,7 @@ const Staff = () => {
     // eslint-disable-next-line
     const [staff, setStaff] = useState()
     // eslint-disable-next-line
-    const [auth, setAuth] = useState(false)
+    const [auth, setAuth] = useState()
 
     useEffect(() => {
         (async () => {
@@ -17,7 +17,7 @@ const Staff = () => {
                 setAuth(() => true)
             }
             else {
-                setStaff(() => false)
+                setAuth(() => false)
             }
             return setStaff(result)
         })()

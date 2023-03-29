@@ -7,7 +7,7 @@ import IndexAdmin from './Index'
 const Admin = () => {
     // eslint-disable-next-line
     const [admin, setAdmin]= useState()
-    const [auth, setAuth]= useState(false)
+    const [auth, setAuth]= useState()
 
     useEffect(()=> {
         (async ()=> {
@@ -16,7 +16,7 @@ const Admin = () => {
                 setAuth(()=> true)
             }
             else {
-                setAdmin(()=> false)
+                setAuth(()=> false)
             }
             return setAdmin(result)
         })()
@@ -27,8 +27,8 @@ const Admin = () => {
             {
                 auth=== true && 
                 <>
-                    <Route path={"/*"} element={<IndexAdmin />}  />
                     <Route path={"/login"} element={<Navigate to={"/admin"} />} />
+                    <Route path={"/*"} element={<IndexAdmin />}  />
                 </>
             }
             {

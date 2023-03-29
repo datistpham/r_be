@@ -1,6 +1,6 @@
 // import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './Component/Home/Home';
 import Login from './Component/Login/Login';
 import Signup from './Component/Signup/Signup';
@@ -11,6 +11,9 @@ import Admin from './Component/Admin/Admin';
 import Staff from './Component/Staff/Staff';
 import Order from './Component/Order/Order';
 import Menu from './Component/Menu/Menu';
+import BanquetHall from './Component/BanquetHall/BanquetHall';
+import { SnackbarProvider } from 'notistack';
+import NotFound from './Component/NotFound/NotFound';
 
 export const AppContext= createContext()
 function App() {
@@ -30,20 +33,25 @@ function App() {
     })()
   }, [change])
   return (
-    <AppContext.Provider value={{auth, user, setChange}}>
-      <Router>
-        <Routes>
-          <Route path={"/"} element={<Home />} />
-          <Route path={"/login"} element={<Login />} />
-          <Route path={"/signup"} element={<Signup />} />
-          <Route path={"/cart"} element={<Cart />} />
-          <Route path={"/admin/*"} element={<Admin />} />
-          <Route path={"/staff/*"} element={<Staff />} />
-          <Route path={"/order/*"} element={<Order />} /> 
-          <Route path={"/menu/*"} element={<Menu />} />
-        </Routes>
-      </Router>
-    </AppContext.Provider>
+    <SnackbarProvider autoHideDuration={3000} maxSnack={3}>
+      <AppContext.Provider value={{auth, user, setChange}}>
+        <Router>
+          <Routes>
+            <Route path={"/"} element={<Home />} />
+            <Route path={"/login"} element={<Login />} />
+            <Route path={"/signup"} element={<Signup />} />
+            <Route path={"/cart"} element={<Cart />} />
+            <Route path={"/admin/*"} element={<Admin />} />
+            <Route path={"/staff/*"} element={<Staff />} />
+            <Route path={"/order/*"} element={<Order />} /> 
+            <Route path={"/menu/*"} element={<Menu />} />
+            <Route path={"/banquet-hall/*"} element={<BanquetHall />} />
+            <Route path={"*"} element={<Navigate replace={true} to={"/404"} />} />
+            <Route path={"/404"} element={<NotFound />} />
+          </Routes>
+        </Router>
+      </AppContext.Provider>
+    </SnackbarProvider>
   );
 }
 

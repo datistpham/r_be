@@ -33,10 +33,15 @@ export default function Sidebar() {
               }
             
             </Link>
-            <li className="sidebarListItem">
-              <LoyaltyIcon className="sidebarIcon" />
+            <Link to="/staff/info" className="link">
+              {
+                (({isActive}) => <li className={`sidebarListItem ${isActive=== true ? "active" : ""}`}>
+                <LoyaltyIcon className="sidebarIcon" />
                 Thông tin cá nhân
-            </li>
+                </li>)
+              }
+            
+            </Link>
           </ul>
         </div>
         <div className="sidebarMenu">

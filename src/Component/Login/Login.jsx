@@ -28,7 +28,7 @@ const Login = (props) => {
             <div className={"c-flex-center"} style={{ position: "fixed", top: 0, left: 0, zIndex: 999, width: "100%", height: "100%", backgroundImage: "url(https://appetizer-client.vercel.app/static/media/bg-login.59c329f0.png)", backgroundSize: "cover", backgroundRepeat: "no-repeat" }}>
                 <main className="main">
                     {
-                        roleLogin === 3 && <><div className="container">
+                        (parseInt(roleLogin) === 3 || props?.is_login_admin=== true) && <><div className="container">
 
                             <section className="wrapper">
                                 <div className="heading">
@@ -71,7 +71,7 @@ const Login = (props) => {
                     }
                     {/*  */}
                     {
-                        roleLogin=== 2 && <>
+                        parseInt(roleLogin)=== 2 && <>
                                 {
                                     open === false &&
                                     <div className="container">
@@ -143,7 +143,7 @@ const Login = (props) => {
                             </>
                     }
                     {
-                        roleLogin=== 1 && <>
+                        parseInt(roleLogin)=== 1 && props?.is_login_admin !== true && <>
                                 {
                                     open === false &&
                                     <div className="container">
