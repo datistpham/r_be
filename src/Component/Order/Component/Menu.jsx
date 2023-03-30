@@ -11,7 +11,8 @@ import { useNavigate } from "react-router-dom";
 
 const Menu = ({ item }) => {
   const [selectMenu, setSelectMenu] = useState(false);
-  const { auth } = useContext(AppContext);
+  const { auth, user } = useContext(AppContext);
+
   const navigate = useNavigate();
 
   return (
@@ -48,7 +49,7 @@ const Menu = ({ item }) => {
         ))}
       </Grid>
       <Grid xs={12} style={{ background: "#555", padding: 10 }}>
-        <Box
+        {/* <Box
           sx={{
             width: "100%",
             display: "flex",
@@ -73,70 +74,73 @@ const Menu = ({ item }) => {
           >
             Xóa tất cả
           </Button>
-        </Box>
-        <div style={{ margin: "8px 0" }}>
-          <Button
-            onClick={async () => {
-              if (selectMenu === true) {
-                const { value: text } = await Swal.fire({
-                  input: "text",
-                  inputLabel: "Số lượng",
-                  inputPlaceholder: "Nhập số lượng menu cần đặt",
-                  inputAttributes: {
-                    "aria-label": "Type your message here",
-                  },
-                  showCancelButton: true,
-                });
+        </Box> */}
+        {
+          parseInt(user?.role)=== 2 && 
+          <div style={{ margin: "8px 0" }}>
+            <Button
+              onClick={async () => {
+                if (selectMenu === true) {
+                  const { value: text } = await Swal.fire({
+                    input: "text",
+                    inputLabel: "Số lượng",
+                    inputPlaceholder: "Nhập số lượng menu cần đặt",
+                    inputAttributes: {
+                      "aria-label": "Type your message here",
+                    },
+                    showCancelButton: true,
+                  });
 
-                if (text) {
-                  if (auth === true) {
-                    const result = await book_menu(
-                      item?.menu_id,
-                      parseInt(text)
-                    )
-                      .then(() => {
-                        swal("Thông báo", "Đặt menu thành công", "success", {
-                          buttons: {
-                            ok: "Xem hóa đơn",
-                            cancel: "Đóng",
-                          },
-                        }).then((value) => {
-                          if (value === "ok") {
-                            navigate("/");
-                          } else {
-                            return null;
-                          }
+                  if (text) {
+                    if (auth === true) {
+                      const result = await book_menu(
+                        item?.menu_id,
+                        parseInt(text)
+                      )
+                        .then(() => {
+                          swal("Thông báo", "Đặt menu thành công", "success", {
+                            buttons: {
+                              ok: "Xem hóa đơn",
+                              cancel: "Đóng",
+                            },
+                          }).then((value) => {
+                            if (value === "ok") {
+                              navigate("/");
+                            } else {
+                              return null;
+                            }
+                          });
+                        })
+                        .catch(() => {
+                          swal("Thông báo", result?.message, "error");
                         });
-                      })
-                      .catch(() => {
-                        swal("Thông báo", result?.message, "error");
-                      });
+                    } else {
+                      swal("Thông báo", "Bạn cần đăng nhập để tiếp tục", "error");
+                    }
                   } else {
-                    swal("Thông báo", "Bạn cần đăng nhập để tiếp tục", "error");
+                    swal(
+                      "Thông báo",
+                      "Bạn cần nhập số lượng menu cần đặt",
+                      "error"
+                    );
                   }
-                } else {
-                  swal(
-                    "Thông báo",
-                    "Bạn cần nhập số lượng menu cần đặt",
-                    "error"
-                  );
                 }
-              }
-            }}
-            type={"primary"}
-            style={{
-              fontSize: 18,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              padding: 16,
-            }}
-            variant={"contained"}
-            color={"primary"}
-          >
-            Đặt
-          </Button>
-        </div>
+              }}
+              type={"primary"}
+              style={{
+                fontSize: 18,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                padding: 16,
+              }}
+              variant={"contained"}
+              color={"primary"}
+            >
+              Đặt
+            </Button>
+          </div>
+        }
       </Grid>
     </Grid>
   );

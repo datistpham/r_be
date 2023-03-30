@@ -10,7 +10,9 @@
 
 # production
 /build
-
+/a.py
+/b/py
+/query_image.png
 # misc
 .DS_Store
 .env.local

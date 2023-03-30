@@ -14,6 +14,7 @@ import Menu from './Component/Menu/Menu';
 import BanquetHall from './Component/BanquetHall/BanquetHall';
 import { SnackbarProvider } from 'notistack';
 import NotFound from './Component/NotFound/NotFound';
+import AboutUs from './Component/Home/AboutUs/AboutUs';
 
 export const AppContext= createContext()
 function App() {
@@ -48,6 +49,7 @@ function App() {
             <Route path={"/banquet-hall/*"} element={<BanquetHall />} />
             <Route path={"*"} element={<Navigate replace={true} to={"/404"} />} />
             <Route path={"/404"} element={<NotFound />} />
+            <Route path={"/about"} element={<AboutUs />} />
           </Routes>
         </Router>
       </AppContext.Provider>

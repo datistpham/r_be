@@ -30,7 +30,7 @@ const MenuDish = (props) => {
                 <div style={{display: "flex", alignItems: "center", color: "#f00", fontSize: 18, fontWeight: 600}}>
                     {numberWithCommas(parseInt(props?.item?.price))} VNĐ
                 </div>
-                <Checkbox onChange={handleSelect} checked={checked} placeholder={"Chọn món này"} />
+                {/* <Checkbox onChange={handleSelect} checked={checked} placeholder={"Chọn món này"} /> */}
             </div>
         </div>
     </Grid>

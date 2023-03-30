@@ -1,6 +1,7 @@
 import { Menu, MenuItem } from "@mui/material";
 import Cookies from "js-cookie";
 import React from "react";
+import Sidebar from "../Sidebar/Sidebar";
 import "./topbar.css";
 
 export default function Topbar() {
@@ -23,6 +24,10 @@ export default function Topbar() {
       <div className="topbarWrapper">
         <div className="topLeft">
           <span className="logo">Yummy</span>
+        </div>
+        <div style={{color: "#000"}}>
+          <Sidebar />
+
         </div>
         <div className="topRight">
           <div onClick={handleClick} className="topbarIconContainer">

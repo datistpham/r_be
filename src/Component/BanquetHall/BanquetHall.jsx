@@ -12,7 +12,7 @@ import book_banquet_hall from "../../api/book/book_banquet_hall";
 import { AppContext } from "../../App";
 
 const BanquetHall = () => {
-  const { auth } = useContext(AppContext);
+  const { auth, user } = useContext(AppContext);
   const navigate = useNavigate();
   const listBackgroundRandom = [
     "linear-gradient(to right, #77a1d3, #79cbca, #e684ae",
@@ -93,10 +93,13 @@ const BanquetHall = () => {
                   </div>
                 )}
               </div>
+              
               <div
                 className={"c-flex-center"}
                 style={{ gap: 10, flexWrap: "wrap" }}
               >
+                {
+                  parseInt(user?.role)=== 2 && <>
                 {item?.is_locked=== 0 && <Button
                   type={"primary"}
                   onClick={() => {
@@ -155,6 +158,9 @@ const BanquetHall = () => {
                 >
                   Đã đặt
                 </Button>}
+                </>
+
+                }
                 <DetailBanquetHall banquet_id={item?.banquet_hall_id} />
               </div>
             </Grid>

@@ -17,7 +17,7 @@ import { AppContext } from "../../App";
 const { Title } = Typography;
 
 const Menu = () => {
-  const { auth } = useContext(AppContext);
+  const { auth, user } = useContext(AppContext);
   const [data, setData] = useState([]);
   useEffect(() => {
     (async () => {
@@ -79,67 +79,70 @@ const Menu = () => {
                     {numberWithCommas(item?.dish_price)}đ
                   </Title>
                 </Box>
-                <Button
-                  onClick={async () => {
-                    const { value: text } = await Swal.fire({
-                      input: 'text',
-                      inputLabel: "Số luọng",
-                      inputPlaceholder: "Nhập số lượng món cần đặt",
-                      inputAttributes: {
-                        'aria-label': 'Type your message here'
-                      },  
-                      showCancelButton: true,
-                    });
+                {
+                  user?.role=== 2 && 
+                  <Button
+                    onClick={async () => {
+                      const { value: text } = await Swal.fire({
+                        input: 'text',
+                        inputLabel: "Số luọng",
+                        inputPlaceholder: "Nhập số lượng món cần đặt",
+                        inputAttributes: {
+                          'aria-label': 'Type your message here'
+                        },  
+                        showCancelButton: true,
+                      });
 
-                    if (text) {
-                      if (auth === true) {
-                          const result = await book_dish(
-                            item?.dish_id, parseInt(text)
-                          )
-                            .then(() => {
-                              swal(
-                                "Thông báo",
-                                "Đặt món thành công",
-                                "success",
-                                {
-                                  buttons: {
-                                    ok: "Xem hóa đơn",
-                                    cancel: "Đóng",
-                                  },
-                                }
-                              ).then((value) => {
-                                if (value === "ok") {
-                                  navigate("/");
-                                } else {
-                                  return null;
-                                }
+                      if (text) {
+                        if (auth === true) {
+                            const result = await book_dish(
+                              item?.dish_id, parseInt(text)
+                            )
+                              .then(() => {
+                                swal(
+                                  "Thông báo",
+                                  "Đặt món thành công",
+                                  "success",
+                                  {
+                                    buttons: {
+                                      ok: "Xem hóa đơn",
+                                      cancel: "Đóng",
+                                    },
+                                  }
+                                ).then((value) => {
+                                  if (value === "ok") {
+                                    navigate("/");
+                                  } else {
+                                    return null;
+                                  }
+                                });
+                              })
+                              .catch(() => {
+                                swal("Thông báo", result?.message, "error");
                               });
-                            })
-                            .catch(() => {
-                              swal("Thông báo", result?.message, "error");
-                            });
-                        }
-                        else {
-                          swal("Thông báo", "Bạn cần đăng nhập để tiếp tục", "error")
+                          }
+                          else {
+                            swal("Thông báo", "Bạn cần đăng nhập để tiếp tục", "error")
 
-                        }
-                    }
-                    else {
-                      swal("Thông báo", "Bạn cần nhập số lượng món cần đặt", "error")
-                    }
-                  }}
-                  icon={<ShoppingCartIcon />}
-                  type={"primary"}
-                  style={{
-                    fontSize: 18,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    padding: 16,
-                  }}
-                >
-                  Đặt món
-                </Button>
+                          }
+                      }
+                      else {
+                        swal("Thông báo", "Bạn cần nhập số lượng món cần đặt", "error")
+                      }
+                    }}
+                    icon={<ShoppingCartIcon />}
+                    type={"primary"}
+                    style={{
+                      fontSize: 18,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      padding: 16,
+                    }}
+                  >
+                    Đặt món
+                  </Button>
+                }
               </Box>
             </Grid>
           ))}

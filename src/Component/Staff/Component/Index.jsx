@@ -10,7 +10,6 @@ const Index = () => {
     <>
       <Topbar />
       <div className="container-admin">
-          <Sidebar />
           <Routes>
                 <Route path="/" element={<Home />}>
                 </Route>

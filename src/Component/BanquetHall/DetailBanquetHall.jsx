@@ -12,12 +12,14 @@ import { Button } from 'antd'
 import { List, ListItem } from '@mui/material';
 import {AiFillLock, AiFillUnlock } from "react-icons/ai"
 import numberWithCommas from '../util/numberThousandSeparator';
+import { AppContext } from '../../App';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function DetailBanquetHall(props) {
+  const {user }= React.useContext(AppContext)
   const [data, setData]= useState()
   useEffect(()=> {
     (async ()=> {
@@ -94,10 +96,16 @@ export default function DetailBanquetHall(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          {
-            data?.is_locked=== 0 && 
-            <Button type={"primary"} onClick={handleClose}>Đặt sảnh</Button>
-          }
+          <>
+            {
+              parseInt(user?.role)=== 2 && <>
+                {
+                  data?.is_locked=== 0 && 
+                  <Button type={"primary"} onClick={handleClose}>Đặt sảnh</Button>
+                }
+              </>
+            }
+          </>
           <Button onClick={handleClose}>Đóng</Button>
         </DialogActions>
       </Dialog>

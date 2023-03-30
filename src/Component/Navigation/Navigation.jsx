@@ -13,6 +13,7 @@ const Navigation = () => {
 
   return (
     <div style={{display: "flex", justifyContent: 'center', alignItems: "center"}}>
+       
         <NavLink to={"/"} style={{textDecoration: "none", color: "unset"}} className={({isActive})=> isActive ? "active-link" : "no-active-link"}>
           <div onClick={()=> navigate("/")} style={{padding: 10, fontSize: 20, cursor: "pointer"}}>
             <ComponentNavigation title={"Trang chủ"} icon={<HomeIcon />} />
@@ -34,6 +35,11 @@ const Navigation = () => {
         <NavLink to={"/banquet-hall"} style={{textDecoration: "none", color: "unset"}} className={({isActive})=> isActive ? "active-link" : "no-active-link"}>
           <div onClick={()=> navigate("/banquet-hall")} style={{padding: 10, fontSize: 20, cursor: "pointer"}}>
             <ComponentNavigation title={"Đặt sảnh"} icon={<RoomServiceIcon />} />
+          </div>
+        </NavLink>
+        <NavLink to={"/about"} style={{textDecoration: "none", color: "unset"}} className={({isActive})=> isActive ? "active-link" : "no-active-link"}>
+          <div onClick={()=> navigate("/about")} style={{padding: 10, fontSize: 20, cursor: "pointer"}}>
+            <ComponentNavigation title={"Liên hệ đặt tiệc"} />
           </div>
         </NavLink>
     </div>
