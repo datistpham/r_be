@@ -5,7 +5,7 @@ const connection = require("../../database/connect")
 const staff= {
     get: expressAsyncHandler(async (req, res)=> {
         try {
-            const [rows]= await connection.execute("SELECT * FROM user WHERE role= 2")
+            const [rows]= await connection.execute("SELECT *, id_user as id FROM user WHERE role= 2")
             return res.status(200).json(rows)
             
         } catch (error) {

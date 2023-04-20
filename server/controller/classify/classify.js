@@ -30,8 +30,3 @@ async function classify(text) {
   return labels[predictedClassIndex];
 }
 
-// Test the classify() function with some sample inputs
-console.log(await classify('hamburger')); // Output: 'food'
-console.log(await classify('coffee')); // Output: 'drink'
-console.log(await classify('pizza')); // Output: 'food'
-console.log(await classify('soda')); // Output: 'drink'
