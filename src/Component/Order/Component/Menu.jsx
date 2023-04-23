@@ -1,4 +1,4 @@
-import { Box, Button, Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import React, { useContext, useState } from "react";
 import numberWithCommas from "../../util/numberThousandSeparator";
 import _ from "lodash";
@@ -10,8 +10,9 @@ import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
 
 const Menu = ({ item }) => {
-  const [selectMenu, setSelectMenu] = useState(false);
-  const { auth, user } = useContext(AppContext);
+  // eslint-disable-next-line
+  const [selectMenu, setSelectMenu] = useState(true);
+  const { auth, user, orderId } = useContext(AppContext);
 
   const navigate = useNavigate();
 
@@ -75,8 +76,7 @@ const Menu = ({ item }) => {
             Xóa tất cả
           </Button>
         </Box> */}
-        {
-          parseInt(user?.role)=== 2 && 
+        {parseInt(user?.role) === 2 && (
           <div style={{ margin: "8px 0" }}>
             <Button
               onClick={async () => {
@@ -93,29 +93,26 @@ const Menu = ({ item }) => {
 
                   if (text) {
                     if (auth === true) {
-                      const result = await book_menu(
-                        item?.menu_id,
-                        parseInt(text)
-                      )
-                        .then(() => {
-                          swal("Thông báo", "Đặt menu thành công", "success", {
-                            buttons: {
-                              ok: "Xem hóa đơn",
-                              cancel: "Đóng",
-                            },
-                          }).then((value) => {
-                            if (value === "ok") {
-                              navigate("/");
-                            } else {
-                              return null;
-                            }
-                          });
-                        })
-                        .catch(() => {
-                          swal("Thông báo", result?.message, "error");
-                        });
+                      try {
+                        const result = await book_menu(
+                          item?.menu_id,
+                          parseInt(text),
+                          orderId
+                        );
+                        if (result?.status === 200) {
+                          swal("Thông báo", "Đặt menu thành công", "success");
+                        } else {
+                          swal("Thông báo", "Lỗi không xác định", "error");
+                        }
+                      } catch (e) {
+                        swal("Thông báo", "Lỗi không xác định", "error");
+                      }
                     } else {
-                      swal("Thông báo", "Bạn cần đăng nhập để tiếp tục", "error");
+                      swal(
+                        "Thông báo",
+                        "Bạn cần đăng nhập để tiếp tục",
+                        "error"
+                      );
                     }
                   } else {
                     swal(
@@ -140,7 +137,7 @@ const Menu = ({ item }) => {
               Đặt
             </Button>
           </div>
-        }
+        )}
       </Grid>
     </Grid>
   );

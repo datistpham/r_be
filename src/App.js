@@ -21,6 +21,8 @@ function App() {
   const [auth, setAuth]= useState()
   const [user, setUser]= useState()
   const [change, setChange]= useState(false)
+  const [orderId, setOrderId]= useState()
+  const [isOrderOnlyMenu, setIsOrderOnlyMenu]= useState(false)
   useEffect(()=> {
     (async ()=> {
       const result= await authUser()
@@ -35,7 +37,7 @@ function App() {
   }, [change])
   return (
     <SnackbarProvider autoHideDuration={3000} maxSnack={3}>
-      <AppContext.Provider value={{auth, user, setChange}}>
+      <AppContext.Provider value={{auth, user, setChange, setOrderId, orderId, isOrderOnlyMenu, setIsOrderOnlyMenu}}>
         <Router>
           <Routes>
             <Route path={"/"} element={<Home />} />
@@ -44,8 +46,10 @@ function App() {
             <Route path={"/cart"} element={<Cart />} />
             <Route path={"/admin/*"} element={<Admin />} />
             <Route path={"/staff/*"} element={<Staff />} />
-            <Route path={"/order/*"} element={<Order />} /> 
+            <Route path={"/order/:category_id"} element={<Order />} /> 
+            <Route path={"/order/"} element={<Order />} /> 
             <Route path={"/menu/*"} element={<Menu />} />
+            <Route path={"/menu/:category_id"} element={<Menu />} />
             <Route path={"/banquet-hall/*"} element={<BanquetHall />} />
             <Route path={"*"} element={<Navigate replace={true} to={"/404"} />} />
             <Route path={"/404"} element={<NotFound />} />

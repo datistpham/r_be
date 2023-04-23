@@ -17,6 +17,10 @@ const Info = () => {
 
   return (
     <div className="home" style={{padding: 20}}>
+        <br />
+        <br />
+        <br />
+        <br />
         <div style={{width: "100%", padding: 10, borderRadius: 10}}>
             <List>
                 <ListItem>

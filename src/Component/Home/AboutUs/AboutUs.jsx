@@ -1,6 +1,8 @@
 import React, {useState } from 'react'
 import Header from '../../Header/Header'
 import "./style.scss"
+import request_booking from '../../../api/request_booking'
+import swal from 'sweetalert'
 
 const AboutUs = () => {
   return (
@@ -22,35 +24,18 @@ const Contact = () => {
   const [contactData, setContactData] = useState({});
   const [errorMsg, setErrorMsg] = useState();
   const [successMsg, setSuccessMsg] = useState(false);
-
+  const [guest, setGuest]= useState("")
+  const [type, setType]= useState("")
+  const isValidName= (name)=> {
+    return name?.length >= 6 ? true : false
+  }
   const isValidEmail = (email) => {
     return /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email);
   };
 
   const isValidMobile = (mobileno) => {
-    return /^[6-9]\d{9}$/.test(mobileno);
-  };
-
-  const validateField = (field, value) => {
-    if (value.length <= 0) {
-      return (
-        <>
-          <span className="text-capitalize">{field}</span> is required field.
-        </>
-      );
-    } else {
-      if (field === "email") {
-        if (!isValidEmail(value)) return "Invalid Email.";
-      } else if (field === "mobile") {
-        if (!isValidMobile(value)) return "Invalid Mobile Number.";
-      } else {
-        return "";
-      }
-    }
-  };
-
-  const handleBlur = (event) => {
-    setErrorMsg(validateField(event.target.name, event.target.value));
+    const phoneRegex = /^\d{10}$/;
+    return phoneRegex.test(mobileno);
   };
 
   const handleChange = (e) => {
@@ -80,10 +65,10 @@ const Contact = () => {
       contactData.mobile === undefined ||
       contactData.email === "" ||
       contactData.email === undefined ||
-      contactData.company === "" ||
-      contactData.company === undefined ||
-      contactData.message === "" ||
-      contactData.message === undefined
+      contactData.guest === "" ||
+      contactData.guest === undefined ||
+      contactData.type === "" ||
+      contactData.type === undefined
     ) {
       setSuccessMsg(false);
       isValided = false;
@@ -115,7 +100,6 @@ const Contact = () => {
                   placeholder="Họ và tên"
                   value={contactData.name || ""}
                   onChange={(e) => handleChange(e)}
-                  onBlur={handleBlur}
                 />
               </div>
               <br />
@@ -126,7 +110,6 @@ const Contact = () => {
                   maxLength={10}
                   className="form-control"
                   placeholder="Điện thoại"
-                  onBlur={handleBlur}
                   value={contactData.mobile || ""}
                   onChange={(e) => handleChange(e)}
                 />
@@ -140,7 +123,6 @@ const Contact = () => {
                   placeholder="Email"
                   value={contactData.email || ""}
                   onChange={(e) => handleChange(e)}
-                  onBlur={handleBlur}
                 />
               </div>
               <br />
@@ -150,9 +132,8 @@ const Contact = () => {
                   type="text"
                   className="form-control"
                   placeholder="Số lượng khách"
-                  value={contactData.guest || ""}
-                  onChange={(e) => handleChange(e)}
-                  onBlur={handleBlur}
+                  value={guest}
+                  onChange={(e) => setGuest(e.target.value)}
                 />
               </div>
               <br />
@@ -162,14 +143,32 @@ const Contact = () => {
                   type="text"
                   className="form-control"
                   placeholder="Loại hình tiệc"
-                  value={contactData.type || ""}
-                  onChange={(e) => handleChange(e)}
-                  onBlur={handleBlur}
+                  value={type}
+                  onChange={(e) => setType(e.target.value)}
                 />
               </div>
               <br />
               <p className="text-right mb-0">
                 <input
+                  onClick={async ()=> {
+                    if(isValidName(contactData.name)=== false ){
+                      return swal("Thông báo", "Tên khách hàng phải có ít nhất 6 ký tự", "error")
+                    }
+                    if(isValidEmail(contactData.email)=== false) {
+                      return swal("Thông báo", "Email không hợp lệ, vui lòng thử lại", "error")
+                    }
+                    if(isValidMobile(contactData.mobile)=== false ) {
+                      return swal("Thông báo", "Số điện thoại không hợp lệ, vui lòng kiểm tra lại", "error")
+                    }
+                  
+                    const result= await request_booking(contactData.name, contactData.email, contactData.mobile, guest, type)
+                    if(result?.add=== true ) {
+                      swal("Thông báo", "Đã gửi yêu cầu thành công, nhân viên sẽ sớm liên hệ lại bạn!", "success")
+                    }
+                    else {
+                      swal("Thông báo", "Lỗi không xác định", "error")
+                    }
+                  }}
                   type="submit"
                   className="btn btn-primary"
                   value="Gửi"

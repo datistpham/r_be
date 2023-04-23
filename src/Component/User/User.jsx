@@ -25,7 +25,9 @@ const User = () => {
 
   return (
     <div className={"c-flex-center"} style={{gap: 5}}>
-        <img onClick={()=> navigate("/cart")} style={{cursor: "pointer"}} src="https://res.cloudinary.com/cockbook/image/upload/v1676558788/Screenshot_2023-02-16_214551_j4zirx.png" alt="" />
+        <div style={{width: 96, height: 93, marginRight: 12, background: "#eeeeee", borderRadius: 10}} className={"c-flex-center"}>
+          <img onClick={()=> navigate("/cart")} style={{cursor: "pointer", width: 50}} src="https://cdn0.iconfinder.com/data/icons/multimedia-line-30px/30/recent_history_replay_repeat-512.png" alt="" />
+        </div>
         {
           auth=== false && 
           <img onClick={()=> navigate("/login")} style={{cursor: "pointer"}} src="https://res.cloudinary.com/cockbook/image/upload/v1676558788/Screenshot_2023-02-16_214603_rbdxuo.png" alt="" />

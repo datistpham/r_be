@@ -47,7 +47,7 @@ const Cart = () => {
                       }}
                     >
                       <>
-                        {item?.state === 0 && (
+                        {/* {item?.state === 0 && (
                           <Pay componentPay={<div>Hello World</div>} />
                         )}
                         {item?.state === 1 && (
@@ -58,9 +58,9 @@ const Cart = () => {
                           >
                             Đã thanh toán
                           </Button>
-                        )}
+                        )} */}
                       </>
-                      <Button type={"link"}>Xem hóa đơn</Button>
+                      {/* <Button type={"link"}>Xem hóa đơn</Button> */}
                     </div>
                   </>
                 )}
@@ -89,11 +89,11 @@ const Cart = () => {
                         </div>
                         <br />
                         <div style={{display: "flex", alignItems: "center"}}>
-                          <Button type={"link"}>Xem hóa đơn</Button>
-                          {item?.state === 0 && (
-                            <Pay componentPay={<div>Hello World</div>} />
-                          )}
-                          {item?.state === 1 && (
+                          {/* <Button type={"link"}>Xem hóa đơn</Button> */}
+                          {/* {item?.state === 0 && (
+                            <Pay componentPay={<div></div>} />
+                          )} */}
+                          {/* {item?.state === 1 && (
                             <Button
                               type={"dashed"}
                               disabled={true}
@@ -102,7 +102,7 @@ const Cart = () => {
                               Đã thanh toán
                             </Button>
                           )}
-                          
+                           */}
                         </div>
                       </div>
                     </div>
@@ -134,11 +134,11 @@ const Cart = () => {
                         </div>
                         <br />
                         <div style={{display: "flex", alignItems: "center"}}>
-                          <Button type={"link"}>Xem hóa đơn</Button>
-                          {item?.state === 0 && (
+                          {/* <Button type={"link"}>Xem hóa đơn</Button> */}
+                          {/* {item?.state === 0 && (
                             <Pay componentPay={<div>Hello World</div>} />
-                          )}
-                          {item?.state === 1 && (
+                          )} */}
+                          {/* {item?.state === 1 && (
                             <Button
                               type={"dashed"}
                               disabled={true}
@@ -146,7 +146,7 @@ const Cart = () => {
                             >
                               Đã thanh toán
                             </Button>
-                          )}
+                          )} */}
                           
                         </div>
                       </div>

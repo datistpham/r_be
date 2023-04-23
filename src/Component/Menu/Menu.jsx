@@ -10,21 +10,23 @@ import SearchItemMenu from "./Search";
 import { Button } from "antd";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import swal from "sweetalert";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import book_dish from "../../api/book/book_dish";
 import Swal from "sweetalert2";
 import { AppContext } from "../../App";
 const { Title } = Typography;
 
 const Menu = () => {
-  const { auth, user } = useContext(AppContext);
+  const { auth, user, setOrderId, orderId } = useContext(AppContext);
+  const {category_id }= useParams()
   const [data, setData] = useState([]);
   useEffect(() => {
     (async () => {
-      const result = await get_list_dish();
+      const result = await get_list_dish(category_id);
       return setData(result);
     })();
-  }, []);
+  }, [category_id]);
+  const location= useLocation()
   const navigate = useNavigate();
   const [itemOffset, setItemOffset] = useState(0);
   const endOffset = itemOffset + 8;
@@ -37,6 +39,13 @@ const Menu = () => {
     const newOffset = (event.selected * 8) % data.length;
     setItemOffset(newOffset);
   };
+  useEffect(()=> {
+    if(location.state?.order_id) {
+      setOrderId(location.state?.order_id)
+    }
+  }, [location.state])
+  useEffect(()=> {
+  })
 
   return (
     <>
@@ -85,7 +94,7 @@ const Menu = () => {
                     onClick={async () => {
                       const { value: text } = await Swal.fire({
                         input: 'text',
-                        inputLabel: "Số luọng",
+                        inputLabel: "Số lương",
                         inputPlaceholder: "Nhập số lượng món cần đặt",
                         inputAttributes: {
                           'aria-label': 'Type your message here'
@@ -94,32 +103,25 @@ const Menu = () => {
                       });
 
                       if (text) {
+                        console.log(text)
+                        if(typeof parseInt(text) !== "number") {
+                          return swal("Thông báo", "Số lượng không hợp lệ, vui lòng kiểm tra lại", "error")
+                        }
                         if (auth === true) {
-                            const result = await book_dish(
-                              item?.dish_id, parseInt(text)
-                            )
-                              .then(() => {
-                                swal(
-                                  "Thông báo",
-                                  "Đặt món thành công",
-                                  "success",
-                                  {
-                                    buttons: {
-                                      ok: "Xem hóa đơn",
-                                      cancel: "Đóng",
-                                    },
-                                  }
-                                ).then((value) => {
-                                  if (value === "ok") {
-                                    navigate("/");
-                                  } else {
-                                    return null;
-                                  }
-                                });
-                              })
-                              .catch(() => {
-                                swal("Thông báo", result?.message, "error");
-                              });
+                            try {
+                              const result = await book_dish(
+                                item?.dish_id, parseInt(text), orderId
+                              ) 
+                              if(result?.status=== 200) {
+                                swal("Thông báo", "Đặt món thành công", "success")
+                              }
+                              else {
+                                swal("Thông báo", "Lỗi không xác định", "error")
+                              }
+                            }
+                            catch(e) {
+                              swal("Thông báo", "Lỗi không xác định", "error")
+                            }
                           }
                           else {
                             swal("Thông báo", "Bạn cần đăng nhập để tiếp tục", "error")

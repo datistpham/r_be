@@ -2,6 +2,7 @@ import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
+import SearchIcon from '@mui/icons-material/Search';
 const DetailDish = React.lazy(() => import('./DetailDish'));
 
 export default function SearchItemMenu(props) {
@@ -20,14 +21,16 @@ export default function SearchItemMenu(props) {
         getOptionLabel={(option) => option.dish_name}
         options={props?.data}
         renderInput={(params) => (
-          <TextField
+          <div>
+            <TextField
             {...params}
-            label="Tìm kiếm món ăn"
+            label={<><SearchIcon /> Tìm kiếm món ăn</>}
             InputProps={{
               ...params.InputProps,
               type: 'search',
             }}
           />
+          </div>
         )}
       />
         <React.Suspense fallback={<></>}>

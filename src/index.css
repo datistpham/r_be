@@ -49,3 +49,9 @@ code {
 .active-link {
   color: #2e89ff !important
 }
+
+.wrap-mode-deposit ul {
+  display: flex !important;
+  justify-content: center;
+  flex-direction: column;
+}

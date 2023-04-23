@@ -25,6 +25,7 @@ const get_category = require("../controller/get_category")
 const new_customer = require("../controller/new/new_customer")
 const new_transaction = require("../controller/new/new_transaction")
 const add_staff = require("../controller/add_staff")
+const update_order_request = require("../controller/update_order_request")
 const router= express.Router()
 
 
@@ -72,5 +73,6 @@ router.get("/api/v1/category", get_category)
 router.get("/api/v3/new/customer", new_customer)
 router.get("/api/v3/new/transaction", new_transaction)
 router.post("/api/v3/add_staff", add_staff)
+router.post("/api/v2/update/order-request", update_order_request)
 
 module.exports= router

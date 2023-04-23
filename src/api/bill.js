@@ -3,12 +3,12 @@ import Cookies from "js-cookie"
 import { API_URL } from "../config"
 
 const bill= {
-    getBill: async (bill_id)=> {
+    getBill: async (order_id)=> {
         const res= await axios({
             url: API_URL+ "/api/v1/bill/get",
             method: "get",
             params: {
-                user_id: Cookies.get("uid"), bill_id
+                user_id: Cookies.get("uid"), order_id
             }
         })
         const result= await res.data

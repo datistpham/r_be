@@ -7,13 +7,14 @@ import { AiFillLock, AiFillUnlock } from "react-icons/ai";
 import { Button } from "antd";
 import DetailBanquetHall from "./DetailBanquetHall";
 import swal from "sweetalert";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import book_banquet_hall from "../../api/book/book_banquet_hall";
 import { AppContext } from "../../App";
 
 const BanquetHall = () => {
-  const { auth, user } = useContext(AppContext);
+  const { auth, user, orderId, setOrderId } = useContext(AppContext);
   const navigate = useNavigate();
+  const location= useLocation()
   const listBackgroundRandom = [
     "linear-gradient(to right, #77a1d3, #79cbca, #e684ae",
     "linear-gradient(to right, #314755, #26a0da)",
@@ -37,6 +38,11 @@ const BanquetHall = () => {
 
     return () => clearInterval(intervalId);
   }, [change]);
+  useEffect(()=> {
+    if(location.state?.order_id) {
+      setOrderId(location.state?.order_id)
+    }
+  }, [location.state])
   return (
     <>
       <Header />
@@ -112,7 +118,7 @@ const BanquetHall = () => {
                       if (value === "ok") {
                         if (auth === true) {
                           const result = await book_banquet_hall(
-                            item?.banquet_hall_id
+                            item?.banquet_hall_id, orderId
                           )
                             .then(() => {
                               setChange((prev) => !prev);

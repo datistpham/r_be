@@ -21,12 +21,19 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function DetailBanquetHall(props) {
   const {user }= React.useContext(AppContext)
   const [data, setData]= useState()
-  useEffect(()=> {
-    (async ()=> {
-        const result= await get_banquet_detail(props?.banquet_id)
-        return setData(result)
-    })()
+  const fetchData= React.useCallback(async ()=> {
+    const result= await get_banquet_detail(props?.banquet_id)
+    return setData(result)
   }, [props?.banquet_id])
+  useEffect(()=> {
+    fetchData()
+    const intervalId= setInterval(()=> {
+      fetchData()
+    }, 4000)
+    
+    return ()=> clearInterval(intervalId)
+
+  }, [fetchData])
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
