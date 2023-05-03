@@ -8,12 +8,13 @@ import UpdateInfo from './UpdateInfo'
 
 const Info = () => {
   const [data, setData]= useState()
+  const [change, setChange]= useState(false)
   useEffect(()=> {
     (async ()=> {
         const result= await get_detail_staff(Cookies.get("uid"))
         return setData(result)
     })()
-  }, [])
+  }, [change])
 
   return (
     <div className="home" style={{padding: 20}}>
@@ -29,7 +30,7 @@ const Info = () => {
                 </ListItem>
                 <ListItem>
                     <div style={{width: 150}}>Email: </div>
-                    <div>{data?.first_name} {data?.email}</div>
+                    <div>{data?.email}</div>
                 </ListItem>
                 <ListItem>
                     <div style={{width: 150}}>Chức vụ: </div>
@@ -37,7 +38,7 @@ const Info = () => {
                 </ListItem>
             </List>
         </div>
-        <UpdateInfo firstName={data?.first_name} lastName={data?.last_name} email={data?.email} />
+        <UpdateInfo firstName={data?.first_name} lastName={data?.last_name} email={data?.email} setChange={setChange} />
     </div>
   )
 }

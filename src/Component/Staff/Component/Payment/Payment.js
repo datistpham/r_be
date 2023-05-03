@@ -9,15 +9,19 @@ import EditPayment from "./EditPayment";
 import { Button } from "antd";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
-import Bill from "./Bill";
+import Bill, { renderFinalValue } from "./Bill";
 import confirm_payment from "../../../../api/staff/confirm_payment";
 import { useContext } from "react";
 import { AppContext } from "../../../../App";
+import bill from "../../../../api/bill";
+// import numberWithCommas from "../../../util/numberThousandSeparator";
+import _ from "lodash";
 
 const Payment = () => {
   const {setIsOrderOnlyMenu }= useContext(AppContext)
   const [data, setData] = useState([]);
   const [change, setChange]= useState(false);
+  const [totalBill, setTotalBill]= useState(0)
   const navigate= useNavigate()
   const fetchData= async () => {
     const result = await get_list_order_request();
@@ -91,7 +95,7 @@ const Payment = () => {
         return (
           <>
             <EditPayment {...params.row} setChange={setChange} />
-            <Bill {...params.row} />
+            <Bill {...params.row} setTotalBill={setTotalBill} />
             <DeleteOutline
               className="userListDelete"
               onClick={() => {
@@ -133,7 +137,24 @@ const Payment = () => {
               }})
               .then(async value=> {
                 if(value=== "ok") {
-                  const result= await confirm_payment(params?.row?.id)
+                  const result1 = await bill.getBill(params.row?.order_request_id);
+                  const total= (_.sumBy(result1, (row)=> parseInt(
+                            parseInt(
+                              renderFinalValue(
+                                row?.amount_menu,
+                                row?.amount_dish,
+                                row?.id_user_booking
+                              )
+                            ) *
+                              parseInt(
+                                renderFinalValue(
+                                  row?.price,
+                                  row?.menu_price,
+                                  row?.dish_price
+                                )
+                              )
+                          )))
+                  const result= await confirm_payment(params?.row?.id, total)
                   if(result?.paid=== true ){
                     swal("Thông báo", "Bạn đã xác nhận thành công", "success")
                     .then(()=> setChange(prev=> !prev))

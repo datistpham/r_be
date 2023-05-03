@@ -15,7 +15,7 @@ const order= {
     }),
     newOrderRequest: expressAsyncHandler(async (req, res)=> {
         try {
-            const [rows]= await connection.execute("INSERT INTO order_request(order_request_id, user_name, phone, email , deposit) VALUES(?, ?, ?, ?, ?)", [v4(), req.body.user_name, req.body.phone, req.body.email, req.body.deposit=== true ? 1 : 0])
+            const [rows]= await connection.execute("INSERT INTO order_request(order_request_id, user_name, phone, email , deposit, time_created) VALUES(?, ?, ?, ?, ?, ?)", [v4(), req.body.user_name, req.body.phone, req.body.email, req.body.deposit=== true ? 1 : 0, new Date()])
             return res.status(200).json({add: true})
         } catch (error) {
             console.log(error)

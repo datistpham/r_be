@@ -8,16 +8,18 @@ import get_list_contact from "../../../../api/staff/get_list_contact";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import Alert from '@mui/material/Alert';
+import delete_contact from "../../../../api/admin/delete_contact";
 
 const Contact = () => {
   const [data, setData]= useState([])
+  const [change, setChange]= useState(false)
   const navigate= useNavigate()
   useEffect(()=> {
     (async ()=> {
       const result= await get_list_contact()
       return setData(result)
     })()
-  }, [])
+  }, [change])
   const columns = [
     { field: "id", headerName: "ID", width: 350 },
     {
@@ -60,6 +62,16 @@ const Contact = () => {
                   }
                 ).then(async (value) => {
                   if (value === "delete") {
+                    try {
+                      const result= await delete_contact(params.row.id)
+                      if(result.delete=== true ) {
+                        swal("Thông báo", "Đã xóa yêu cầu này thành công", "success")
+                        .then(()=> setChange(prev=> !prev))
+                      }
+                    }
+                    catch(error) {
+                      swal("Thông báo", "Lỗi", "error")
+                    }
                     // await delete_user(params.row?.id)
                     // handleDelete(params.row.id)
                   } else {

@@ -26,6 +26,10 @@ const new_customer = require("../controller/new/new_customer")
 const new_transaction = require("../controller/new/new_transaction")
 const add_staff = require("../controller/add_staff")
 const update_order_request = require("../controller/update_order_request")
+const update_staff = require("../controller/update_staff")
+const delete_contact = require("../controller/delete-contact")
+const custom_book_dish = require("../controller/custom_book_dish")
+const stats = require("../controller/stats/stats")
 const router= express.Router()
 
 
@@ -74,5 +78,12 @@ router.get("/api/v3/new/customer", new_customer)
 router.get("/api/v3/new/transaction", new_transaction)
 router.post("/api/v3/add_staff", add_staff)
 router.post("/api/v2/update/order-request", update_order_request)
+router.post("/api/v3/staff/update", update_staff)
+router.delete("/api/v3/contact", delete_contact)
+router.post("/api/v2/book/dish/custom", custom_book_dish)
+router.get("/api/v3/stats/day", stats.statsDate)
+router.get("/api/v3/stats/month", stats.statsMonth)
+router.get("/api/v3/stats/year", stats.statsYear)
+router.get("/api/v3/stats/range", stats.statsRange)
 
 module.exports= router

@@ -164,6 +164,11 @@ const Contact = () => {
                     const result= await request_booking(contactData.name, contactData.email, contactData.mobile, guest, type)
                     if(result?.add=== true ) {
                       swal("Thông báo", "Đã gửi yêu cầu thành công, nhân viên sẽ sớm liên hệ lại bạn!", "success")
+                      .then(()=> {
+                        setContactData({name: "", email: "", mobile: ""})
+                        setGuest("")
+                        setType("")
+                      })
                     }
                     else {
                       swal("Thông báo", "Lỗi không xác định", "error")

@@ -21,6 +21,7 @@ import bill from "../../../../api/bill";
 import numberWithCommas from "../../../util/numberThousandSeparator";
 import ReactToPrint from "react-to-print";
 import _ from "lodash";
+import moment from "moment";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -39,7 +40,22 @@ export default function Bill(props) {
   }, [props?.order_request_id]);
   const handleClickOpen = () => {
     setOpen(true);
-  };
+  };numberWithCommas(_.sumBy(data, (row)=> parseInt(
+                            parseInt(
+                              renderFinalValue(
+                                row?.amount_menu,
+                                row?.amount_dish,
+                                row?.id_user_booking
+                              )
+                            ) *
+                              parseInt(
+                                renderFinalValue(
+                                  row?.price,
+                                  row?.menu_price,
+                                  row?.dish_price
+                                )
+                              )
+                          )))
 
   const handleClose = () => {
     setOpen(false);
@@ -58,6 +74,9 @@ export default function Bill(props) {
         <DialogTitle>{"Thông tin hóa đơn"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
+            <div style={{marginBottom: 12}}>Họ và tên: <strong>{props?.user_name}</strong></div>
+            <div style={{marginBottom: 12}}>Số điện thoại: <strong>{props?.phone}</strong></div>
+            <div style={{marginBottom: 12}}>Thời gian đặt: <strong>{moment(props?.time_created).format("DD/MM/YYYY HH:mm:ss")}</strong></div>
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 500 }} aria-label="simple table">
                 <TableHead>
@@ -156,6 +175,9 @@ export default function Bill(props) {
             <div style={{ textAlign: "center", fontSize: 13, marginBottom: 8 }}>
               Cảm ơn! Hẹn gặp quý khách lần sau
             </div>
+            <div style={{direction: "rtl"}}>
+              Xuất hóa đơn lúc: <strong>{moment(new Date()).format("DD/MM/YYYY HH:mm:ss")}</strong>
+            </div>
           </DialogContentText>
         </DialogContent>
       </Dialog>
@@ -177,6 +199,9 @@ export default function Bill(props) {
         <DialogTitle>{"Thông tin hóa đơn"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
+            <div style={{marginBottom: 12}}>Họ và tên: <strong>{props?.user_name}</strong></div>
+            <div style={{marginBottom: 12}}>Số điện thoại: <strong>{props?.phone}</strong></div>
+            <div style={{marginBottom: 12}}>Thời gian đặt: <strong>{moment(props?.time_created).format("DD/MM/YYYY HH:mm:ss")}</strong></div>
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 500 }} aria-label="simple table">
                 <TableHead>
@@ -295,7 +320,7 @@ export default function Bill(props) {
   );
 }
 
-const renderFinalValue = (a, b, c, d) => {
+export const renderFinalValue = (a, b, c, d) => {
   if (a) {
     return a;
   } else if (b) {

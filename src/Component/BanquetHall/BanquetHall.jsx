@@ -128,13 +128,13 @@ const BanquetHall = () => {
                                 "success",
                                 {
                                   buttons: {
-                                    ok: "Xem hóa đơn",
+                                    ok: "Tiếp tục đặt",
                                     cancel: "Đóng",
                                   },
                                 }
                               ).then((value) => {
                                 if (value === "ok") {
-                                  navigate("/");
+                                  navigate("/order");
                                 } else {
                                   return null;
                                 }

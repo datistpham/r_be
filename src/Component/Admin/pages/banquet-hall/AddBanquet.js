@@ -64,11 +64,14 @@ export default function AddBanquet(props) {
           <Button type={"primary"} onClick={async ()=> {
             const result= await add_banquet(banquetHallName, time[0].format("HH:mm:ss"), time[1].format("HH:mm:ss"), parseInt(serviceGuest))
             if(parseInt(result?.status)=== 200) {
+              props?.setChange(prev=> !prev)
               enqueueSnackbar({
                 message: result?.message,
                 variant: 'success',
               });
-              props?.setChange(prev=> prev)
+              setBanquetHallName("")
+              setTime([])
+              setServiceGuest()
             }
             else {
               enqueueSnackbar({

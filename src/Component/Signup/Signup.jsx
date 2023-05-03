@@ -17,7 +17,7 @@ const Signup = () => {
   const [verifyCode, setVerifyCode]= useState(0)
   const navigate= useNavigate()
   const [open, setOpen]= useState(false)
-  const validatePasswordRegex= /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/
+  const validatePasswordRegex= /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/
   const validatePassword= (str)=> {
     return validatePasswordRegex.test(str)
   }
@@ -57,6 +57,7 @@ const Signup = () => {
                             <div></div>
                             <input onClick={async (e)=> {
                                 e.preventDefault()
+                                console.log(validatePassword(password))
                                 if(validatePassword(password) === false ) {
                                     swal("Thông báo", "Mật khẩu phải có ít nhất 8 ký tự gồm chữ hoa, chữ thường và chữ số")
                                 }
