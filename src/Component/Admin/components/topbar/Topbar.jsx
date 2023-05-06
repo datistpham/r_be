@@ -2,8 +2,9 @@ import { Menu, MenuItem } from "@mui/material";
 import Cookies from "js-cookie";
 import React from "react";
 import "./topbar.css";
+import InfoAdmin from "./InfoAdmin";
 
-export default function Topbar() {
+export default function Topbar(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -37,6 +38,10 @@ export default function Topbar() {
               'aria-labelledby': 'basic-button',
             }}
           >
+            {
+              props?.is_admin=== true && 
+            <InfoAdmin {...props} />
+            }
             <MenuItem onClick={()=> {
               handleClose()
               Logout()
@@ -47,3 +52,5 @@ export default function Topbar() {
     </div>
   );
 }
+
+

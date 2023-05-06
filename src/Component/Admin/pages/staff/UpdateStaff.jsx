@@ -12,6 +12,7 @@ import { TextField } from "@mui/material";
 import { Button } from "antd";
 import update_menu from "../../../../api/menu/update_menu";
 import update_staff from "../../../../api/admin/update_staff";
+import validateEmail from "../../../util/validateEmail";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -81,6 +82,16 @@ export default function UpdateStaff(props) {
           <Button
             type={"primary"}
             onClick={async () => {
+              if(firstName?.length <=0 ) {
+                return swal("Thông báo", "Họ nhân viên không được để trống", "error")
+              }
+              if(lastName?.length <= 0) {
+                return swal("Thông báo", "Tên nhân viên không được để trống", "error")
+
+              }
+              if(validateEmail(email) === false) {
+                return swal("Thông báo", "Email sai định dạng", "error")
+              }
               const result = await update_staff(firstName, lastName, email, id);
               if (result?.update === true) {
                 swal("Thông báo", "Cập nhật thành công", "success").then(() => {

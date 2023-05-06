@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { DeleteOutline } from "@material-ui/icons";
 import swal from "sweetalert";
 import { DataGrid } from "@material-ui/data-grid";
-import delete_menu from "../../../../api/menu/delete_menu";
+// import delete_menu from "../../../../api/menu/delete_menu";
 import UpdateDish from "./UpdateDish";
 import AddDish from "./AddDish";
 import get_dish from "../../../../api/dish/get_dish";

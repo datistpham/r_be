@@ -11,6 +11,7 @@ import swal from "sweetalert";
 import { TextField } from "@mui/material";
 import { Button } from "antd";
 import update_menu from "../../../../api/menu/update_menu";
+import update_dish from "../../../../api/dish/update_dish";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -82,13 +83,11 @@ export default function UpdateDish(props) {
           <Button
             type={"primary"}
             onClick={async () => {
-              const result = await update_menu(dishName, dishDescription, id);
+              const result = await update_dish(id, dishName, dishPrice, dishDescription);
               if (result?.update === true) {
                 swal("Thông báo", "Đã cập nhật thành công", "success").then(
                   () => {
                     handleClose();
-                    setDishName("");
-                    setDishDescription("");
                     props?.setChange((prev) => !prev);
                   }
                 );

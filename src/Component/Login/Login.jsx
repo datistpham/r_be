@@ -170,6 +170,10 @@ const Login = (props) => {
                                                         if (result?.login === false) {
                                                             swal("Thông báo", "Đăng nhập thất bại, Email hoặc mật khẩu không chính xác", "error")
                                                         }
+                                                        else if(result?.isAdmin === true) {
+                                                            swal("Thông báo", "Đăng nhập thành công", "success").then(() => Cookies.set("uid", result.id_user)).then(() => navigate("/admin")).then(() => window.location.reload())
+
+                                                        }
                                                         else if (result?.login === true) {
                                                             swal("Thông báo", "Đăng nhập thành công", "success").then(() => Cookies.set("uid", result.id_user)).then(() => navigate("/")).then(() => window.location.reload())
 

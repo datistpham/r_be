@@ -38,6 +38,14 @@ const dish= {
             console.log(error)
             return res.status(500).json(error)
         }
+    }),
+    update: expressAsyncHandler(async (req, res)=> {
+        try {
+            const [rows]= await connection.execute("UPDATE dish SET dish_name= ?, dish_description= ?, dish_price= ? WHERE dish_id= ?", [req.body.dish_name, req.body.dish_description, req.body.dish_price, req.body.dish_id])
+            return res.status(200).json({update: true})
+        } catch (error) {
+            return res.status(500).json(error)
+        }
     })
 }
 

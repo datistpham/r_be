@@ -25,13 +25,13 @@ const BanquetHallAdmin = () => {
       headerName: "Tên người dùng đặt",
       width: 200,
       renderCell: (params)=> {
-        if(params.row?.id_user_booking.length <= 0) {
+        if(params.row?.id_user_booking.length <= 0 || !params.row.id_user_booking) {
           return <>
             Chưa có người đặt
           </>
         }
         else {
-          return (params.row?.id_user_booking)
+          return `${(params.row?.first_name)} ${(params.row?.last_name)}`
         }
       }
 

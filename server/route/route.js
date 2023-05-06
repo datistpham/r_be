@@ -30,6 +30,9 @@ const update_staff = require("../controller/update_staff")
 const delete_contact = require("../controller/delete-contact")
 const custom_book_dish = require("../controller/custom_book_dish")
 const stats = require("../controller/stats/stats")
+const delete_order_request = require("../controller/delete_order_request")
+const get_list_blog = require("../controller/get_list_blog")
+const get_detail_news = require("../controller/get_detail_news")
 const router= express.Router()
 
 
@@ -85,5 +88,10 @@ router.get("/api/v3/stats/day", stats.statsDate)
 router.get("/api/v3/stats/month", stats.statsMonth)
 router.get("/api/v3/stats/year", stats.statsYear)
 router.get("/api/v3/stats/range", stats.statsRange)
+router.delete("/api/v2/order-request", delete_order_request)
+router.post("/api/v3/dish/update", dish.update)
+router.get("/api/v1/blogs", get_list_blog)
+router.get("/api/v1/blogs/detail", get_detail_news )
+
 
 module.exports= router

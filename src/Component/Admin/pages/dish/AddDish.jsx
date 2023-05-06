@@ -9,17 +9,17 @@ import Slide from "@mui/material/Slide";
 // import { TextField } from '@mui/material';
 import swal from "sweetalert";
 import {
-  Checkbox,
-  ListItemText,
-  MenuItem,
-  OutlinedInput,
-  Select,
+  // Checkbox,
+  // ListItemText,
+  // MenuItem,
+  // OutlinedInput,
+  // Select,
   TextField,
 } from "@mui/material";
 import { Button } from "antd";
 import UploadImage from "../../../UploadImage/UploadImage";
-import get_list_dish from "../../../../api/admin/get_list_dish";
-import add_menu from "../../../../api/menu/add_menu";
+// import get_list_dish from "../../../../api/admin/get_list_dish";
+// import add_menu from "../../../../api/menu/add_menu";
 import upload_image from "../../../../api/upload_image";
 import add_dish from "../../../../api/dish/add_dish";
 

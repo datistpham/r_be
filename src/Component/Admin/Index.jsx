@@ -9,10 +9,10 @@ import DishAdmin from "./pages/dish/DishAdmin";
 import StaffList from "./pages/staff/Staff";
 import News from "./pages/new/New";
 
-function IndexAdmin() {
+function IndexAdmin(props) {
   return (
       <>
-        <Topbar />
+        <Topbar {...props} is_admin={true} />
         <div className="container-admin">
             <Sidebar />
             <Routes>

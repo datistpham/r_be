@@ -16,6 +16,7 @@ import { AppContext } from "../../../../App";
 import bill from "../../../../api/bill";
 // import numberWithCommas from "../../../util/numberThousandSeparator";
 import _ from "lodash";
+import delete_order_request from "../../../../api/order/delete_order_request";
 
 const Payment = () => {
   const {setIsOrderOnlyMenu }= useContext(AppContext)
@@ -110,6 +111,20 @@ const Payment = () => {
                   }
                 ).then(async (value) => {
                   if (value === "delete") {
+                    try {
+                      const result= await delete_order_request(params.row.id)
+                      if(result?.delete=== true) {
+                        swal("Thông báo", "Đã xóa thành công", "success")
+                        .then(()=> setChange(prev=> !prev))
+                      }
+                      else {
+                        swal("Thông báo", "Xóa thất bại", "error")
+                      }
+                    }catch(e) {
+                      console.log(e)
+                      swal("Thông báo", "Lỗi không xuất hiện", "error")
+                    }
+
                     // await delete_user(params.row?.id)
                     // handleDelete(params.row.id)
                   } else {
@@ -138,6 +153,7 @@ const Payment = () => {
               .then(async value=> {
                 if(value=== "ok") {
                   const result1 = await bill.getBill(params.row?.order_request_id);
+                  const listBanquet= result1?.filter(item=> item?.banquet_hall_id?.length > 0)
                   const total= (_.sumBy(result1, (row)=> parseInt(
                             parseInt(
                               renderFinalValue(
@@ -154,7 +170,7 @@ const Payment = () => {
                                 )
                               )
                           )))
-                  const result= await confirm_payment(params?.row?.id, total)
+                  const result= await confirm_payment(params?.row?.id, total, listBanquet)
                   if(result?.paid=== true ){
                     swal("Thông báo", "Bạn đã xác nhận thành công", "success")
                     .then(()=> setChange(prev=> !prev))

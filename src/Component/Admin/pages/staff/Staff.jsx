@@ -69,7 +69,7 @@ export default function StaffList() {
 
   return (
     <div className="userList">
-      <AddStaff />
+      <AddStaff setChange={setChange} />
       <br />
       <DataGrid
         rows={data}

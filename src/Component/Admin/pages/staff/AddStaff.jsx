@@ -23,6 +23,8 @@ import UploadImage from "../../../UploadImage/UploadImage";
 import upload_image from "../../../../api/upload_image";
 import add_dish from "../../../../api/dish/add_dish";
 import add_staff from "../../../../api/admin/add_staff";
+import validateEmail from "../../../util/validateEmail";
+import { validatePassword } from "../../../util/validatePassword";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -112,6 +114,20 @@ export default function AddStaff(props) {
           <Button
             type={"primary"}
             onClick={async () => {
+              if(firstName?.length <=0 ) {
+                return swal("Thông báo", "Họ nhân viên không được để trống", "error")
+              }
+              if(lastName?.length <= 0) {
+                return swal("Thông báo", "Tên nhân viên không được để trống", "error")
+
+              }
+              if(validateEmail(email) === false) {
+                return swal("Thông báo", "Email sai định dạng", "error")
+              }
+              if(validatePassword(password)=== false) {
+                return swal("Thông báo", "Mật khẩu quá yếu, mật khẩu phải gồm ít nhất 8 ký tự gồm chữ số, chữ hoa, chữ thường", "error")
+
+              }
               // const finalImage = await upload_image(image?.thumbUrl);
               const result = await add_staff(
                 firstName,

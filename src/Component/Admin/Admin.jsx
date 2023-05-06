@@ -28,7 +28,7 @@ const Admin = () => {
                 auth=== true && 
                 <>
                     <Route path={"/login"} element={<Navigate to={"/admin"} />} />
-                    <Route path={"/*"} element={<IndexAdmin />}  />
+                    <Route path={"/*"} element={<IndexAdmin {...admin} />}  />
                 </>
             }
             {

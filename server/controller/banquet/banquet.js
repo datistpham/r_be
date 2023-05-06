@@ -5,7 +5,7 @@ const connection = require("../../database/connect")
 const banquet= {
     get: expressAsyncHandler(async (req, res)=> {
         try {
-            const [rows]= await connection.execute("SELECT *, banquet_hall_id AS id FROM banquet_hall")
+            const [rows]= await connection.execute("SELECT *, banquet_hall_id AS id FROM banquet_hall LEFT JOIN user ON user.id_user= banquet_hall.id_user_booking")
             return res.status(200).json(rows)
             
         } catch (error) {   

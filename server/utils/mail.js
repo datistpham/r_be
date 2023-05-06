@@ -8,8 +8,6 @@ const transporter= nodemailer.createTransport({
     }
 })
 
-
-
 const verifyMail= async (email, code)=> {
     try {
         const result= await transporter.sendMail({from: "datistpham@gmail.com", to: email, subject: "Verify your email", text: "Your code is: "+ code})

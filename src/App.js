@@ -15,6 +15,8 @@ import BanquetHall from './Component/BanquetHall/BanquetHall';
 import { SnackbarProvider } from 'notistack';
 import NotFound from './Component/NotFound/NotFound';
 import AboutUs from './Component/Home/AboutUs/AboutUs';
+import News from './Component/News/News';
+import DetailNew from './Component/DetailNew/DetailNew';
 
 export const AppContext= createContext()
 function App() {
@@ -27,6 +29,7 @@ function App() {
     (async ()=> {
       const result= await authUser()
       if(result.auth=== true) {
+        // console.log(result)
         setAuth(()=> true)
         setUser(()=> result)
       }
@@ -52,8 +55,10 @@ function App() {
             <Route path={"/menu/:category_id"} element={<Menu />} />
             <Route path={"/banquet-hall/*"} element={<BanquetHall />} />
             <Route path={"*"} element={<Navigate replace={true} to={"/404"} />} />
-            <Route path={"/404"} element={<NotFound />} />
             <Route path={"/about"} element={<AboutUs />} />
+            <Route path={"/news"} element={<News />} />
+            <Route path={"/news/:new_id"} element={<DetailNew />} />
+            <Route path={"/404"} element={<NotFound />} />
           </Routes>
         </Router>
       </AppContext.Provider>

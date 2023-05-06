@@ -139,7 +139,11 @@ export default function InfoUser(props) {
                             }}>Lưu</Button>
                         </>
                     }
-                    <Button onClick={handleClose}>Đóng</Button>
+                    <Button onClick={()=> {
+                        setOpenUpdate(()=> true)
+                        handleClose()
+
+                    }}>Đóng</Button>
                 </DialogActions>
             </Dialog>
         </div>
