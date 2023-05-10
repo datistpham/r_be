@@ -37,6 +37,10 @@ export default function FoodOnDemand(props) {
   };
 
   const handleClose = () => {
+    setDishPrice(0)
+    setDishAmount(0)
+    setDishName("")
+    setDishDescription("")
     setOpen(false);
   };
 
