@@ -56,8 +56,16 @@ export default function FoodOnDemand(props) {
         <DialogContent>
           <TextField value={dishName} onChange={(e)=> setDishName(e.target.value)} label={"Tên món ăn"} style={{width: 550, height: 40, margin: "12px 0"}} />
           <TextField value={dishDescription} onChange={(e)=> setDishDescription(e.target.value)} label={"Mô tả"} style={{width: 550, height: 40, margin: "12px 0"}} />
-          <TextField value={dishPrice} onChange={(e)=> setDishPrice(e.target.value)} type={"number"} label={"Giá tiền"} style={{width: 550, height: 40, margin: "12px 0"}} />
-          <TextField value={dishAmount} onChange={(e)=> setDishAmount(e.target.value)} type={"number"} label={"Số lượng"} style={{width: 550, height: 40, margin: "12px 0"}} />
+          <TextField value={dishPrice} onChange={(e)=> {
+            if(parseInt(e.target.value) >= 0) {
+              setDishPrice(e.target.value)
+            }
+          }} type={"number"} label={"Giá tiền"} style={{width: 550, height: 40, margin: "12px 0"}} />
+          <TextField value={dishAmount} onChange={(e)=> {
+            if(parseInt(e.target.value) >= 0) {
+              setDishAmount(e.target.value)
+            }
+          }} type={"number"} label={"Số lượng"} style={{width: 550, height: 40, margin: "12px 0"}} />
 
         </DialogContent>
         <DialogActions>
