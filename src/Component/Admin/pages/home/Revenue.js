@@ -35,17 +35,20 @@ const Revenue = () => {
     {
         field: "id",
         headerName: "Id",
-        width: 100
+        width: 100, 
+        flex: 1
     },
     {
         field: "revenue",
         headerName: "Doanh thu",
-        width: 200
+        width: 200, 
+        flex: 1
     },
     {
         field: "time_created",
         headerName: "Ngày",
-        width: 200
+        width: 200, 
+        flex: 1
     }
   ]
 
@@ -154,6 +157,9 @@ const Revenue = () => {
             pageSize={5}
             pagination={true}
             paginationMode="client"
+            autoHeight
+                disableExtendRowFullWidth
+                autoWidth
             />
         </Box>
         </div>

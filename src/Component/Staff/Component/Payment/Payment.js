@@ -37,22 +37,25 @@ const Payment = () => {
     return clearInterval(interval)
   }, [change]);
   const columns = [
-    { field: "id", headerName: "ID", width: 350 },
+    { field: "id", headerName: "ID", width: 350,flex: 1 },
     {
       field: "user_name",
       headerName: "Họ tên khách hàng",
       width: 200,
+      flex: 1
     },
-    { field: "phone", headerName: "Số điện thoại", width: 150 },
+    { field: "phone", headerName: "Số điện thoại", width: 150, flex: 1 },
     {
       field: "email",
       headerName: "Email",
       width: 150,
+      flex: 1
     },
     {
         field: "deposit",
         headerName: "Đặt cọc",
         width: 300,
+        flex: 2,
         renderCell: (params)=> {
             if(params.row.paid=== 1) {
               return (
@@ -92,6 +95,7 @@ const Payment = () => {
       field: "action",
       headerName: "Action",
       width: 300,
+      flex: 2,
       renderCell: (params) => {
         return (
           <>
@@ -141,6 +145,7 @@ const Payment = () => {
       field: "paid",
       headerName: "Thanh toán",
       width: 200,
+      flex: 1,
       renderCell: (params) => {
         return (
           <>
@@ -189,6 +194,7 @@ const Payment = () => {
       field: "time_created",
       headerName: "Đã tạo",
       width: 200,
+      flex: 1,
       renderCell: (params) => {
         return (
           <>

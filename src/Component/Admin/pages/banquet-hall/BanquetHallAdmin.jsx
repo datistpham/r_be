@@ -14,16 +14,18 @@ const BanquetHallAdmin = () => {
     })()
   }, [change])
   const columns = [
-    { field: "id", headerName: "ID", width: 120 },
+    { field: "id", headerName: "ID", width: 120, flex: 1 },
     {
         field: "banquet_hall_name",
         headerName: "Tên sảnh",
         width: 200,
+        flex: 1
       },
     {
       field: "id_user_booking",
       headerName: "Tên người dùng đặt",
       width: 200,
+      flex: 1,
       renderCell: (params)=> {
         if(params.row?.id_user_booking.length <= 0 || !params.row.id_user_booking) {
           return <>
@@ -40,15 +42,18 @@ const BanquetHallAdmin = () => {
       field: "time_start",
       headerName: "Thời gian mở",
       width: 150,
+      flex: 1
     },
     {
       field: "time_end",
       headerName: "Thời gian đóng",
       width: 150,
+      flex: 1
     },
     {
       field: "is_locked",
       headerName: "Đã khóa sảnh",
+      flex: 1,
       renderCell: (params)=> {
         if(parseInt(params.row?.is_locked)=== 0) {
           return <>
@@ -68,11 +73,13 @@ const BanquetHallAdmin = () => {
         field: "service_guest",
         headerName: "Số khách phục vụ",
         width: 100,
+        flex: 1
       },
       {
           field: "action",
           headerName: "Action",
           width: 300,
+          flex: 1,
           renderCell: (params) => {
               return (
                   <div style={{gap: 10, display: "flex", alignItems: "center"}}>

@@ -32,7 +32,7 @@ export default function User() {
               alt=""
               className="userShowImg"
             /> */}
-            <div className="userShowTopTitle" style={{marginLeft: 0}}>
+            <div className="userShowTopTitle" style={{ marginLeft: 0 }}>
               <span className="userShowUsername">John doe</span>
               {/* <span className="userShowUserTitle">Software Engineer</span> */}
             </div>

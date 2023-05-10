@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
-import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
+// import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 // import BookIcon from '@mui/icons-material/Book';
 import HomeIcon from '@mui/icons-material/Home';
 import { Box } from '@mui/system';
@@ -42,6 +42,11 @@ const Navigation = () => {
             <NavLink to={"/about"} style={{textDecoration: "none", color: "unset"}} className={({isActive})=> isActive ? "active-link" : "no-active-link"}>
               <div onClick={()=> navigate("/about")} style={{padding: 10, fontSize: 20, cursor: "pointer"}}>
                 <ComponentNavigation title={"Liên hệ đặt tiệc"} />
+              </div>
+            </NavLink>
+            <NavLink to={"/news"} style={{textDecoration: "none", color: "unset"}} className={({isActive})=> isActive ? "active-link" : "no-active-link"}>
+              <div onClick={()=> navigate("/news")} style={{padding: 10, fontSize: 20, cursor: "pointer"}}>
+                <ComponentNavigation title={"Tin tức"} />
               </div>
             </NavLink>
         </div>

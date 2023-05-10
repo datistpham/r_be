@@ -21,14 +21,14 @@ const ForgotPassword = (props) => {
         open2=== false &&
         <section className="wrapper">
             <div className="heading">
-            <h1 className="text text-large"><Button onClick={()=> setOpen(false)} style={{aspectRatio: 1 / 1, borderRadius: "50%"}}><ArrowBackIcon /></Button>Forgot password</h1>
-            <p className="text text-normal">Recover your password <span></span>
+            <h1 className="text text-large"><Button onClick={()=> setOpen(false)} style={{aspectRatio: 1 / 1, borderRadius: "50%"}}><ArrowBackIcon /></Button>Quên mật khẩu</h1>
+            <p className="text text-normal">Khôi phục lại mật khẩu<span></span>
             </p>
             </div>
             <div name="signin" className="form">
             <div className="input-control">
-                <label htmlFor="email" className="input-label" hidden>Email Address</label>
-                <input value={email} onChange={(e)=> setEmail(e.target.value)} type="email" name="email" id="email" className="input-field" placeholder="Email Address" />
+                <label htmlFor="email" className="input-label" hidden>Email</label>
+                <input value={email} onChange={(e)=> setEmail(e.target.value)} type="email" name="email" id="email" className="input-field" placeholder="Email" />
             </div>
             <div className={"c-flex-center"}>
                 <Button variant={"contained"} onClick={async ()=> {
@@ -39,7 +39,7 @@ const ForgotPassword = (props) => {
                     else {
                         swal("Thông báo", "Email không tồn tại trong hệ thống", "error")
                     }
-                }}>Send</Button>
+                }}>Gửi</Button>
             </div>
             </div>
         </section>
@@ -50,20 +50,20 @@ const ForgotPassword = (props) => {
             <section className="wrapper">
                 <div className="heading">
 
-                    <div>We've just send your email a code inclues 6 digit, Please check your email and type to below form to complete recover password process</div>
+                    <div>Chúng tôi vừa gửi đến bạn một mã gồm 6 chữ số, vui lòng kiểm tra email của bạn rồi điền vào biểu mẫu bên dưới để hoàn tất quá trình khôi phục mật khẩu</div>
                         <OtpInput containerStyle={"asw"} inputStyle={"lll"} value={verifyCode} onChange={setVerifyCode} numInputs={6} separator={<span>&nbsp;&nbsp;</span>} />
                         <br />
                         <div className={"c-flex-center"}>
                             <Button onClick={async ()=> {
                                 const result= await recover_password(email, verifyCode)
                                 if(result?.recover=== false ) {
-                                    swal("","Verify code is invalid. Please try again", "error")
+                                    swal("","Mã xác thực không đúng, vui lòng thử lại", "error")
                                 }
                                 else if(result?.recover=== true) {
                                     setOpen2(()=> undefined)
                                 }
                                 else {
-                                    swal("","Error")
+                                    swal("Thông báo","Lỗi không xác định", "error")
                                 }
                             }} variant={"contained"}>Verify</Button>
                     </div>
@@ -75,15 +75,15 @@ const ForgotPassword = (props) => {
             open2=== undefined && <>
             <section className="wrapper">
                 <div className="heading">
-                    <h1 className="text text-large">Reset your password</h1>
+                    <h1 className="text text-large">Đặt lại mật khẩu</h1>
                     <form name="signin" className="form">
                         <div className="input-control">
-                            <label htmlFor="password" className="input-label" hidden>New password</label>
-                            <input value={password} onChange={(e)=> setPassword(e.target.value)} type="password" name="Password" id="Password" className="input-field" placeholder="New password" />
+                            <label htmlFor="password" className="input-label" hidden>Mật khẩu mới</label>
+                            <input value={password} onChange={(e)=> setPassword(e.target.value)} type="password" name="Password" id="Password" className="input-field" placeholder="Mật khẩu mới" />
                         </div>
                         <div className="input-control">
-                            <label htmlFor="Password" className="input-label" hidden>Confirm password</label>
-                            <input value={confirmPassword} onChange={(e)=> setConfirmPassword(e.target.value)} type="password" name="Password" id="Password" className="input-field" placeholder="Confirm password" />
+                            <label htmlFor="Password" className="input-label" hidden>Nhập lại mật khẩu</label>
+                            <input value={confirmPassword} onChange={(e)=> setConfirmPassword(e.target.value)} type="password" name="Password" id="Password" className="input-field" placeholder="Nhập lại mật khẩu" />
                         </div>
                     </form>
                     <div className={"c-flex-center"}>
@@ -96,7 +96,7 @@ const ForgotPassword = (props) => {
                             else {
                                 swal("Error")
                             }
-                        }}>Save</Button>
+                        }}>Lưu</Button>
                     </div>
                 </div>
             </section>

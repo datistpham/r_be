@@ -9,10 +9,10 @@ export default function WidgetLg() {
       <h3 className="widgetLgTitle">Giao dịch mới nhất</h3>
       <table className="widgetLgTable">
         <tr className="widgetLgTr">
-          <th className="widgetLgTh">Customer</th>
-          <th className="widgetLgTh">Date</th>
-          <th className="widgetLgTh">Amount</th>
-          <th className="widgetLgTh">Status</th>
+          <th className="widgetLgTh">Khách hàng</th>
+          <th className="widgetLgTh">Ngày</th>
+          <th className="widgetLgTh">Số lượng</th>
+          <th className="widgetLgTh">Trạng thái</th>
         </tr>
         <tr className="widgetLgTr">
           <td className="widgetLgUser">

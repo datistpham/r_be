@@ -9,6 +9,7 @@ import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import Alert from '@mui/material/Alert';
 import delete_contact from "../../../../api/admin/delete_contact";
+import moment from "moment";
 
 const Contact = () => {
   const [data, setData]= useState([])
@@ -21,27 +22,39 @@ const Contact = () => {
     })()
   }, [change])
   const columns = [
-    { field: "id", headerName: "ID", width: 350 },
+    { field: "id", headerName: "ID", width: 350, flex: 1 },
     {
       field: "username",
       headerName: "Họ tên khách hàng",
-      width: 200,
+      width: 200, flex: 1
     },
-    { field: "phone", headerName: "Số điện thoại", width: 150 },
+    { field: "phone", headerName: "Số điện thoại", width: 150, flex: 1 },
     {
       field: "email",
       headerName: "Email",
       width: 150,
+      flex: 1,
     },
     {
       field: "guest",
       headerName: "Số lượng khách yêu cầu",
       width: 200,
+      flex: 1,
+    },
+    {
+      field: "time_created",
+      headerName: "Đã gửi lúc",
+      width: 200,
+      flex: 1,
+      renderCell: (params)=> {
+        return <>{moment(params.row.time_created).format("DD/MM/YYYY HH:mm:ss")}</>
+      }
     },
     {
       field: "action",
       headerName: "Action",
       width: 500,
+      flex: 3,
       renderCell: (params) => {
         return (
           <>

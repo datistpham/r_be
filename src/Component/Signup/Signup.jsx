@@ -28,29 +28,29 @@ const Signup = () => {
                 <div className="container">
                 {open=== false &&  <section className="wrapper">
                     <div className="heading">
-                    <h1 className="text text-large">Sign Up</h1>
-                    <p className="text text-normal">Old user? <span><Link to={"/login"} className="text text-links">Login account</Link></span>
+                    <h1 className="text text-large">Đăng ký</h1>
+                    <p className="text text-normal">Người dùng cũ? <span><Link to={"/login"} className="text text-links">Đăng nhập</Link></span>
                     </p>
                     </div>
                     <form name="signin" className="form">
                         <div className="input-control">
-                            <label htmlFor="email" className="input-label" hidden>Email Address</label>
-                            <input value={email} onChange={(e)=> setEmail(e.target.value)} type="email" name="email" id="email" className="input-field" placeholder="Email Address" />
+                            <label htmlFor="email" className="input-label" hidden>Email</label>
+                            <input value={email} onChange={(e)=> setEmail(e.target.value)} type="email" name="email" id="email" className="input-field" placeholder="Email" />
                         </div>
                         <div className="input-control">
-                            <label htmlFor="password" className="input-label" hidden>Password</label>
+                            <label htmlFor="password" className="input-label" hidden>Mật khẩu</label>
                             <input value={password} onChange={(e)=> setPassword(e.target.value)} type="password" name="Password" id="Password" className="input-field" placeholder="Password" />
                         </div>
                         <div className="input-control">
-                            <label htmlFor="Password" className="input-label" hidden>Confirm password</label>
+                            <label htmlFor="Password" className="input-label" hidden>Nhập lại mật khẩu</label>
                             <input value={confirmPassword} onChange={(e)=> setConfirmPassword(e.target.value)} type="password" name="Password" id="Password" className="input-field" placeholder="Confirm password" />
                         </div>
                         <div className="input-control">
-                            <label htmlFor="First name" className="input-label" hidden>First name</label>
+                            <label htmlFor="First name" className="input-label" hidden>Họ</label>
                             <input value={firstName} onChange={(e)=> setFirstName(e.target.value)} type="text" name="surname" id="surname" className="input-field" placeholder="Firstname" />
                         </div>
                         <div className="input-control">
-                            <label htmlFor="Lastname" className="input-label" hidden>Lastname</label>
+                            <label htmlFor="Lastname" className="input-label" hidden>Tên</label>
                             <input value={lastName} onChange={(e)=> setLastName(e.target.value)} type="text" name="lastname" id="lastname" className="input-field" placeholder="Lastname" />
                         </div>
                         <div className="input-control">
@@ -68,37 +68,37 @@ const Signup = () => {
                                         setOpen(()=> true)
                                     }
                                     else if(result?.exist=== true) {
-                                        swal("","Email is exist, please choose another email")
+                                        swal("Thông báo","Email đã tồn tại, vui lòng thử lại với email khác", "error")
                                     }
                                     else {
-                                        swal("", "Error")
+                                        swal("Thông báo", "Lỗi xuất hiện", "error")
                                     }
                                 }
-                            }} type="submit" name="submit" value={"Sign up"} className="input-submit" defaultValue="Sign Up" />
+                            }} type="submit" name="submit" value={"Đăng ký"} className="input-submit" defaultValue="Đăng ký" />
                         </div>
                     </form>
                     <div className="striped">
                     <span className="striped-line" />
-                    <span className="striped-text">Or</span>
+                    <span className="striped-text">Hoặc</span>
                     <span className="striped-line" />
                     </div>
                     <div className="method">
                     <div className="method-control">
                         <a href="/" className="method-action">
                         <i className="ion ion-logo-google" />
-                        <span>Sign up with Google</span>
+                        <span>Đăng ký với Google</span>
                         </a>
                     </div>
                     <div className="method-control">
                         <a href="/" className="method-action">
                         <i className="ion ion-logo-facebook" />
-                        <span>Sign up with Facebook</span>
+                        <span>Đăng ký với Facebook</span>
                         </a>
                     </div>
                     <div className="method-control">
                         <a href="/" className="method-action">
                         <i className="ion ion-logo-apple" />
-                        <span>Sign up with Apple</span>
+                        <span>Đăng ký với Apple</span>
                         </a>
                     </div>
                     </div>
@@ -106,25 +106,25 @@ const Signup = () => {
                 {
                     open=== true && <section className="wrapper">
                     <div className="heading">
-                            <h1 className="text text-large"><Button onClick={()=> setOpen(false)} style={{aspectRatio: 1 / 1, borderRadius: "50%"}}><ArrowBackIcon /></Button>Verify email</h1>
+                            <h1 className="text text-large"><Button onClick={()=> setOpen(false)} style={{aspectRatio: 1 / 1, borderRadius: "50%"}}><ArrowBackIcon /></Button>Xác thực email</h1>
 
-                            <div>We've just send your email a code inclues 6 digit, Please check your email and type to below form to complete signup process</div>
+                            <div>Chúng tôi vửa gửi một mã gồm 6 chữ số đến email của bạn, vui lòng kiểm tra email của bạn và điền mã vào biểu mẫu ở dưới để hoàn tất quá trình đăng ký tài khoản</div>
                             <OtpInput containerStyle={"asw"} inputStyle={"lll"} value={verifyCode} onChange={setVerifyCode} numInputs={6} separator={<span>&nbsp;&nbsp;</span>} />
                             <br />
                             <div className={"c-flex-center"}>
                                 <Button onClick={async ()=> {
                                     const result= await verify_email(email,password, firstName, lastName, verifyCode)
                                     if(result?.signup=== false ) {
-                                        swal("","Verify code is invalid. Please try again")
+                                        swal("Thông báo","Mã xác thực không đúng. Vui lòng thử lại", "error")
                                     }
                                     else if(result?.signup=== true) {
-                                        swal("", "Signup was successfully", "success")
+                                        swal("Thông báo", "Đăng ký thành công", "success")
                                         .then(()=> navigate(result.redirect))
                                     }
                                     else {
-                                        swal("","Error")
+                                        swal("Thông báo","Lỗi xảy ra ", "error")
                                     }
-                                }} variant={"contained"}>Verify</Button>
+                                }} variant={"contained"}>Xác thực</Button>
                             </div>
                         </div>
                     </section>

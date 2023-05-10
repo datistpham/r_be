@@ -21,22 +21,25 @@ export default function StaffList() {
     })()
   }, [change])
   const columns = [
-    { field: "id", headerName: "ID", width: 200 },
+    { field: "id", headerName: "ID", width: 200, flex: 1 },
     {
       field: "first_name",
       headerName: "Họ",
       width: 120,
+      flex: 1
     },
-    { field: "last_name", headerName: "Tên", width: 120 },
+    { field: "last_name", headerName: "Tên", width: 120, flex: 1 },
     {
       field: "email",
       headerName: "Email",
       width: 200,
+      flex: 1
     },
     {
       field: "action",
       headerName: "Action",
       width: 150,
+      flex: 1,
       renderCell: (params) => {
         return (
           <>

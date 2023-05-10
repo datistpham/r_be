@@ -7,13 +7,32 @@ import { DataGrid } from "@material-ui/data-grid";
 import AddMenu from "./AddMenu";
 import delete_menu from "../../../../api/menu/delete_menu";
 import { Image } from "antd";
+import Fuse from "fuse.js"
+import { SearchBar } from "../dish/DishAdmin";
 
 const MenuAdmin = () => {
   const [data, setData] = useState([]);
   const [change, setChange]= useState(false)
+  const [search, setSearch]= useState("")
+  const [dataSearch, setDataSearch]= useState([])
+
+  const options = {
+    keys: [
+      "menu_name",
+    ]
+  };
+  const fuse = new Fuse(data, options);
+  const handleSearch= (e)=> {
+    setSearch(e.target.value)
+    setDataSearch(fuse.search(search).map(({item})=> item))
+    if(e.target.value?.length <= 0) {
+      setDataSearch(data)
+    }
+  }
   useEffect(() => {
     (async () => {
       const result = await get_menu();
+      setDataSearch(result)
       return setData(result);
     })();
   }, [change]);
@@ -21,17 +40,19 @@ const MenuAdmin = () => {
     setData(data?.filter(item=> item?.id !== id))
   }
   const columns = [
-    { field: "id", headerName: "ID", width: 200 },
+    { field: "id", headerName: "ID", width: 200, flex: 1 },
     {
       field: "menu_name",
       headerName: "Tên menu",
       width: 200,
+      flex: 1
     },
-    { field: "menu_description", headerName: "Mô tả", width: 250 },
+    { field: "menu_description", headerName: "Mô tả", width: 250, flex: 1 },
     {
       field: "menu_photo",
       headerName: "Hình ảnh menu",
       width: 200,
+      flex: 1,
       renderCell: (params)=> {
         return (
           <Image src={params.row?.menu_photo} alt="" />
@@ -42,6 +63,7 @@ const MenuAdmin = () => {
       field: "action",
       headerName: "Action",
       width: 150,
+      flex: 1,
       renderCell: (params) => {
         return (
           <>
@@ -72,9 +94,11 @@ const MenuAdmin = () => {
   return <div className={"home"} style={{ padding: 20 }}>
     <AddMenu setChange={setChange} />
     <br />
+    <SearchBar search={search} handleSearch={handleSearch} />
+    <br />
     <div className="userList" style={{height: 500}}>
       <DataGrid
-        rows={data}
+        rows={dataSearch}
         disableSelectionOnClick
         columns={columns}
         pageSize={5}
