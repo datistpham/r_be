@@ -24,8 +24,8 @@ export default function FoodOnDemand(props) {
   const {setOrderId, orderId }= useContext(AppContext)
   const [dishName, setDishName]= useState("")
   const [dishDescription, setDishDescription]= useState("")
-  const [dishPrice, setDishPrice]= useState()
-  const [dishAmount, setDishAmount]= useState()
+  const [dishPrice, setDishPrice]= useState(0)
+  const [dishAmount, setDishAmount]= useState(0)
   const [open, setOpen] = React.useState(false);
   useEffect(()=> {
     if(location.state?.order_id) {
