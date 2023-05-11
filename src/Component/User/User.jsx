@@ -20,7 +20,8 @@ const User = () => {
   };
   const Logout= ()=> {
     Cookies.remove("uid")
-    window.location.reload()
+    window.location.href= window.location.origin
+
   }
 
   return (

@@ -10,7 +10,7 @@ import Slide from "@mui/material/Slide";
 import swal from "sweetalert";
 import { TextField } from "@mui/material";
 import { Button } from "antd";
-import update_menu from "../../../../api/menu/update_menu";
+// import update_menu from "../../../../api/menu/update_menu";
 import update_staff from "../../../../api/admin/update_staff";
 import validateEmail from "../../../util/validateEmail";
 

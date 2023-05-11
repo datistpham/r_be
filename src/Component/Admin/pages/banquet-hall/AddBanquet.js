@@ -14,6 +14,7 @@ import { TextField } from '@mui/material';
 import { TimePicker } from 'antd';
 import add_banquet from '../../../../api/banquet/add_banquet';
 import { useSnackbar } from 'notistack';
+import swal from 'sweetalert';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -32,6 +33,7 @@ export default function AddBanquet(props) {
   const [banquetHallName, setBanquetHallName]= React.useState("")
   const [time, setTime]= React.useState([])
   const [serviceGuest, setServiceGuest]= React.useState("")
+  const [price, setPrice]= React.useState()
   const { enqueueSnackbar } = useSnackbar();
   return (
     <div>
@@ -56,13 +58,22 @@ export default function AddBanquet(props) {
                 <ListItem style={{width: 400, margin: "16px 0"}} disablePadding>
                     <TextField value={serviceGuest} onChange={(e)=> setServiceGuest(e.target.value)} label={"Số khách phục vụ"} placeholder={"Số khách phục vụ"} style={{width: "100%"}} />        
                 </ListItem>      
+                <ListItem style={{width: 400, margin: "16px 0"}} disablePadding>
+                    <TextField value={price} onChange={(e)=> setPrice(e.target.value)} label={"Giá sảnh"} placeholder={"Giá sảnh"} style={{width: "100%"}} />        
+                </ListItem>      
             </List>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button type={"ghost"} onClick={handleClose}>Hủy</Button>
           <Button type={"primary"} onClick={async ()=> {
-            const result= await add_banquet(banquetHallName, time[0].format("HH:mm:ss"), time[1].format("HH:mm:ss"), parseInt(serviceGuest))
+            if(banquetHallName.trim().length <= 0) {
+              return swal("Thông báo", "Tên sảnh không được để trống", "error" )
+            }
+            if(parseInt(price) < 0 || typeof parseInt(price) !== "number") {
+              return swal("Thông báo", "Giá sảnh không hợp lệ, Vui lòng thử lại", "error" )
+            }
+            const result= await add_banquet(banquetHallName, time[0].format("HH:mm:ss"), time[1].format("HH:mm:ss"), parseInt(serviceGuest), price)
             if(parseInt(result?.status)=== 200) {
               props?.setChange(prev=> !prev)
               enqueueSnackbar({

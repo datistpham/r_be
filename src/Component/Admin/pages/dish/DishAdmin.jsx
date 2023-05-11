@@ -125,6 +125,8 @@ export function SearchBar(props) {
   return (
     <div>
       <TextField
+        autoComplete={"off"}
+        aria-autocomplete={"none"}
         value={search}
         onChange={(e)=> handleSearch(e)}
         placeholder="Search..."

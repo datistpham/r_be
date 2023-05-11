@@ -51,6 +51,15 @@ const BanquetHallAdmin = () => {
       flex: 1
     },
     {
+      field: "price",
+      headerName: "Giá sảnh",
+      width: 150,
+      flex: 1,
+      renderCell: (params)=> {
+        return params.row.price + "VND"
+      }
+    },
+    {
       field: "is_locked",
       headerName: "Đã khóa sảnh",
       flex: 1,

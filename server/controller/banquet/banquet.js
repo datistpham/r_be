@@ -19,7 +19,7 @@ const banquet= {
                 return res.status(200).json({message: "Tên sảnh đã tồn tại, Vui lòng đặt tên sảnh khác", status: 500})
             }
             else {
-                const [rows]= await connection.execute("INSERT INTO banquet_hall(banquet_hall_id, banquet_hall_name, time_start, time_end, is_locked, service_guest) VALUES(?, ?, ?, ?, ?, ?)", [v4(), req.body.banquet_hall_name, req.body.time_start, req.body.time_end, 0, req.body.service_guest])
+                const [rows]= await connection.execute("INSERT INTO banquet_hall(banquet_hall_id, banquet_hall_name, time_start, time_end, is_locked, service_guest, price) VALUES(?, ?, ?, ?, ?, ?, ?)", [v4(), req.body.banquet_hall_name, req.body.time_start, req.body.time_end, 0, req.body.service_guest, req.body.price])
                 return res.status(200).json({message: "Tạo sảnh thành công", status: 200})
             }
         } catch (error) {
@@ -30,11 +30,11 @@ const banquet= {
     update: expressAsyncHandler(async (req, res)=> {
         try {
             if(req.body?.time?.length <= 0) {
-                const [rows]= await connection.execute("UPDATE banquet_hall SET banquet_hall_name= ?, service_guest= ? WHERE banquet_hall_id= ?", [req.body.banquet_hall_name, req.body.service_guest, req.body.banquet_hall_id])
+                const [rows]= await connection.execute("UPDATE banquet_hall SET banquet_hall_name= ?, service_guest= ?, price= ? WHERE banquet_hall_id= ?", [req.body.banquet_hall_name, req.body.service_guest, req.body.price, req.body.banquet_hall_id])
                 return res.status(200).json({update: true}) 
             }
             else {
-                const [rows]= await connection.execute("UPDATE banquet_hall SET banquet_hall_name= ?, time_start= ?, time_end= ?, service_guest= ? WHERE banquet_hall_id= ?", [req.body.banquet_hall_name, req.body.time_start, req.body.time_end, req.body.service_guest, req.body.banquet_hall_id])
+                const [rows]= await connection.execute("UPDATE banquet_hall SET banquet_hall_name= ?, time_start= ?, time_end= ?, service_guest= ?, price= ? WHERE banquet_hall_id= ?", [req.body.banquet_hall_name, req.body.time_start, req.body.time_end, req.body.service_guest, req.body.price, req.body.banquet_hall_id])
                 return res.status(200).json({update: true}) 
             }
         } catch (error) {

@@ -23,6 +23,7 @@ export default function UpdateBanquet(props) {
   const [banquetHallName, setBanquetHallName]= React.useState(props?.banquet_hall_name)
   const [time, setTime]= React.useState([])
   const [serviceGuest, setServiceGuest]= React.useState(props?.service_guest)
+  const [price, setPrice]= React.useState(props?.price)
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -49,11 +50,19 @@ export default function UpdateBanquet(props) {
             <TextField style={{width: "100%", marginBottom: 12}} value={banquetHallName} onChange={(e)=> setBanquetHallName(e.target.value)} placeholder={"Tên sảnh tiệc"} />
             <TimePicker.RangePicker format={"HH:mm:ss"} value={time} onCalendarChange={(e)=> setTime(e)} className={"time-picker-range"} style={{height: 56, width: "100%", marginBottom: 12}} />
             <TextField style={{width: "100%", marginBottom: 12}} value={serviceGuest} onChange={(e)=> setServiceGuest(e.target.value)} placeholder={"Số khách phục vụ"} />
+            <TextField style={{width: "100%", marginBottom: 12}} value={price} onChange={(e)=> setPrice(e.target.value)} placeholder={"Giá sảnh"} />
+
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button type={"primary"} color={"facebook"} onClick={async ()=> {
-              const result= await update_banquet(banquetHallName, time[0]?.format("HH:mm:ss") || "", time[1]?.format("HH:mm:ss") || "", parseInt(serviceGuest), id, time)
+              if(banquetHallName.trim().length <= 0) {
+                return swal("Thông báo", "Tên sảnh không được để trống", "error" )
+              }
+              if(parseInt(price) < 0 || typeof parseInt(price) !== "number") {
+                return swal("Thông báo", "Giá sảnh không hợp lệ, Vui lòng thử lại", "error" )
+              }
+              const result= await update_banquet(banquetHallName, time[0]?.format("HH:mm:ss") || "", time[1]?.format("HH:mm:ss") || "", parseInt(serviceGuest), id, time, price)
               if(result?.update=== true) {
                 swal("Thông báo", "Bạn đã cập nhật thành công", "success")
                 .then(()=> {

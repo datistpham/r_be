@@ -17,14 +17,21 @@ const MenuAdmin = () => {
   const [dataSearch, setDataSearch]= useState([])
 
   const options = {
+    includeScore: true,
     keys: [
       "menu_name",
     ]
   };
   const fuse = new Fuse(data, options);
+  function searchByLabel(searchTerm) {
+    // Filter the data to only include items with matching labels
+
+    const results = data?.filter(item => item?.menu_name?.toLowerCase()?.includes(searchTerm?.toLowerCase()));
+    return results;
+  }
   const handleSearch= (e)=> {
     setSearch(e.target.value)
-    setDataSearch(fuse.search(search).map(({item})=> item))
+    setDataSearch(searchByLabel(e.target.value))
     if(e.target.value?.length <= 0) {
       setDataSearch(data)
     }
