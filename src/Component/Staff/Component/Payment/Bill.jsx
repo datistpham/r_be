@@ -226,7 +226,6 @@ export default function Bill(props) {
                         {renderFinalValue(
                           row?.menu_name,
                           row?.banquet_hall_name,
-                          null,
                           row?.dish_name
                         )}
                       </TableCell>
@@ -234,6 +233,7 @@ export default function Bill(props) {
                         {renderFinalValue(
                           row?.amount_menu,
                           row?.amount_dish,
+                          row?.banquet_hall_name ? 1: null,
                           row?.id_user_booking
                         )}
                       </TableCell>
@@ -280,6 +280,7 @@ export default function Bill(props) {
                               renderFinalValue(
                                 row?.amount_menu,
                                 row?.amount_dish,
+                                row?.banquet_hall_name ? 1: null,
                                 row?.id_user_booking
                               )
                             ) *
