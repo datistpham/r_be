@@ -8,6 +8,7 @@ import MenuAdmin from "./pages/menu/MenuAdmin";
 import DishAdmin from "./pages/dish/DishAdmin";
 import StaffList from "./pages/staff/Staff";
 import News from "./pages/new/New";
+import NewsAdmin from "./pages/new/New2";
 
 function IndexAdmin(props) {
   return (
@@ -24,7 +25,7 @@ function IndexAdmin(props) {
                 <Route path={"/menu"} element={<MenuAdmin />} />
                 <Route path={"/dish"} element={<DishAdmin />} />
                 <Route path={"/staff"} element={<StaffList/> } />
-                <Route path={"/news"} element={<News />} />
+                <Route path={"/news/*"} element={<NewsAdmin />} />
             </Routes>
         </div>
       </>

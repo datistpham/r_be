@@ -9,6 +9,7 @@ import { Button } from "antd";
 import upload_image from "../../../../api/upload_image";
 import swal from "sweetalert";
 import add_blog from "../../../../api/add_blog";
+import { createBrowserHistory } from "history";
 
 // #2 register module
 Quill.register("modules/imageUploader", ImageUploader);
@@ -119,6 +120,8 @@ class News extends Component {
             <Button
               type={"primary"}
               onClick={async () => {
+                const history = createBrowserHistory();
+
                 const imageFinal = await upload_image(
                   this.state.image?.thumbUrl
                 );
@@ -129,7 +132,8 @@ class News extends Component {
                   this.state.title
                 );
                 if (result?.add === true) {
-                  swal("Thông báo", "Tạo thành công", "success");
+                  swal("Thông báo", "Tạo thành công", "success")
+                  .then(()=> history.go(-1))
                 } else {
                   swal("Thông báo", "Lỗi không xác định", "error");
                 }

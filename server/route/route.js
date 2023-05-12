@@ -93,5 +93,7 @@ router.post("/api/v3/dish/update", dish.update)
 router.get("/api/v1/blogs", get_list_blog)
 router.get("/api/v1/blogs/detail", get_detail_news )
 router.post("/api/v3/banquet-hall/delete", banquet.delete)
+router.post("/api/v3/blog/edit", blog.update)
+router.post("/api/v3/blog/delete", blog.delete)
 
 module.exports= router

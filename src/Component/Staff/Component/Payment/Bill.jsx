@@ -31,6 +31,7 @@ export default function Bill(props) {
   const componentRef = React.useRef();
   const [data, setData] = useState();
   const [open, setOpen] = React.useState(false);
+  // eslint-disable-next-line
   const [totalBill, setTotalBill]= React.useState(0)
   useEffect(() => {
     (async () => {
@@ -101,7 +102,7 @@ export default function Bill(props) {
                         {renderFinalValue(
                           row?.menu_name,
                           row?.banquet_hall_name,
-                          null,
+                          undefined,
                           row?.dish_name
                         )}
                       </TableCell>
@@ -155,6 +156,7 @@ export default function Bill(props) {
                               renderFinalValue(
                                 row?.amount_menu,
                                 row?.amount_dish,
+                                
                                 row?.id_user_booking
                               )
                             ) *
@@ -222,10 +224,12 @@ export default function Bill(props) {
                       <TableCell component="th" scope="row">
                         {parseInt(key) + 1}
                       </TableCell>
+
                       <TableCell align="right">
                         {renderFinalValue(
                           row?.menu_name,
                           row?.banquet_hall_name,
+                          undefined,
                           row?.dish_name
                         )}
                       </TableCell>
@@ -233,7 +237,6 @@ export default function Bill(props) {
                         {renderFinalValue(
                           row?.amount_menu,
                           row?.amount_dish,
-                          row?.banquet_hall_name ? 1: null,
                           row?.id_user_booking
                         )}
                       </TableCell>
@@ -280,7 +283,6 @@ export default function Bill(props) {
                               renderFinalValue(
                                 row?.amount_menu,
                                 row?.amount_dish,
-                                row?.banquet_hall_name ? 1: null,
                                 row?.id_user_booking
                               )
                             ) *
@@ -332,3 +334,14 @@ export const renderFinalValue = (a, b, c, d) => {
     return d;
   }
 };
+
+const renderNameValue= (a, b, c)=> {
+  if (a) {
+    return a;
+  } else if (b) {
+    return b;
+  } 
+   else if (c) {
+    return c;
+  }
+}
