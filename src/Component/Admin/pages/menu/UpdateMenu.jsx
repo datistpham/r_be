@@ -80,6 +80,7 @@ export default function UpdateMenu(props) {
                   setMenuDescription("");
                   props?.setChange((prev) => !prev);
                 });
+
               } else {
                 swal("Thông báo", "Lỗi không xác định", "error");
               }

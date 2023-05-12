@@ -100,14 +100,14 @@ export default function FoodOnDemand(props) {
                   "error"
                 );
               }
-              if (parseInt(dishAmount) < 0 || !dishAmount) {
+              if (parseInt(dishAmount) < 0) {
                 return swal(
                   "Thông báo",
                   "Số lượng món không hợp lệ, Vui lòng thử lại ",
                   "error"
                 );
               }
-              if (parseInt(dishPrice) < 0 || !dishPrice) {
+              if (parseInt(dishPrice) < 0) {
                 return swal(
                   "Thông báo",
                   "Giá món không hợp lệ, Vui lòng thử lại ",
