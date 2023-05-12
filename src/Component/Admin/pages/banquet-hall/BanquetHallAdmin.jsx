@@ -3,6 +3,9 @@ import { DataGrid } from "@mui/x-data-grid";
 import get_banquet from "../../../../api/banquet/get_banquet";
 import AddBanquet from "./AddBanquet";
 import UpdateBanquet from "./UpdateBanquet";
+import swal from "sweetalert";
+import { DeleteOutline } from "@material-ui/icons";
+import delete_banquet from "../../../../api/banquet/delete_banquet";
 
 const BanquetHallAdmin = () => {
   const [change, setChange]= useState(false)
@@ -94,6 +97,26 @@ const BanquetHallAdmin = () => {
                   <div style={{gap: 10, display: "flex", alignItems: "center"}}>
                       <UpdateBanquet {...params.row} id={params.row.id} setChange={setChange} />
                       {/* <DeleteCategory id={params.row.id} setChange={setChange} /> */}
+                      <DeleteOutline
+                        className="userListDelete"
+                        onClick={() => {
+                          swal("Thông báo", "Bạn có muốn xóa menu này không", {
+                            buttons: {
+                              delete: "Delete",
+                              cancel: "Cancel",
+                            },
+                          }).then(async (value) => {
+                            if (value === "delete") {
+                              await delete_banquet(params.row?.id);
+                              swal("Thông báo", "Bạn đã xóa sảnh tiệc này thành công", "success")
+                              .then(()=> setChange(!change))
+                              
+                            } else {
+                              return null;
+                            }
+                          });
+                        }}
+                      />
                   </div>
               );
           },

@@ -22,10 +22,16 @@ export default function StaffList() {
       "last_name",
     ]
   };
+  function searchByLabel(searchTerm) {
+    // Filter the data to only include items with matching labels
+
+    const results = data?.filter(item => (item?.first_name+ " " + item?.last_name)?.toLowerCase()?.includes(searchTerm?.toLowerCase()));
+    return results;
+  }
   const fuse = new Fuse(data, options);
   const handleSearch= (e)=> {
     setSearch(e.target.value)
-    setDataSearch(fuse.search(search).map(({item})=> item))
+    setDataSearch(searchByLabel(e.target.value))
     if(e.target.value?.length <= 0) {
       setDataSearch(data)
     }

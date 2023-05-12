@@ -43,7 +43,8 @@ const banquet= {
     }),
     delete: expressAsyncHandler(async (req, res)=> {
         try {
-            
+            const [rows]= await connection.execute("DELETE FROM banquet_hall WHERE banquet_hall_id= ?", [req.body.banquet_id])
+            return res.status(200).json({delete: true})
         } catch (error) {
             return res.status(500).json(error)
         }

@@ -92,6 +92,6 @@ router.delete("/api/v2/order-request", delete_order_request)
 router.post("/api/v3/dish/update", dish.update)
 router.get("/api/v1/blogs", get_list_blog)
 router.get("/api/v1/blogs/detail", get_detail_news )
-
+router.post("/api/v3/banquet-hall/delete", banquet.delete)
 
 module.exports= router
