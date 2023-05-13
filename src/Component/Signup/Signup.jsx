@@ -72,6 +72,10 @@ const Signup = () => {
                                 if(lastName?.length <= 0) {
                                     return swal("Thông báo", "Tên không được để trống", "error")
                                 }
+                                if(password?.trim() !== confirmPassword?.trim()) {
+                                    return swal("Thông báo", "Mật khẩu không khớp", "error")
+
+                                }
                                 else {
 
                                     const result= await signup(email, password, firstName, lastName)
