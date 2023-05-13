@@ -9,6 +9,9 @@ import RoomServiceIcon from '@mui/icons-material/RoomService';
 import { AppContext } from '../../App';
 import Sidebar from '../Staff/Component/Sidebar/Sidebar';
 import Category from './NavigationCategory';
+import  {GrContact } from "react-icons/gr"
+import { IoIosBrowsers } from "react-icons/io"
+import {BiNews } from "react-icons/bi"
 
 const Navigation = () => {
 
@@ -41,12 +44,12 @@ const Navigation = () => {
             </NavLink>
             <NavLink to={"/about"} style={{textDecoration: "none", color: "unset"}} className={({isActive})=> isActive ? "active-link" : "no-active-link"}>
               <div onClick={()=> navigate("/about")} style={{padding: 10, fontSize: 20, cursor: "pointer"}}>
-                <ComponentNavigation title={"Liên hệ đặt tiệc"} />
+                <ComponentNavigation title={"Liên hệ đặt tiệc"} icon={<GrContact />} />
               </div>
             </NavLink>
             <NavLink to={"/news"} style={{textDecoration: "none", color: "unset"}} className={({isActive})=> isActive ? "active-link" : "no-active-link"}>
               <div onClick={()=> navigate("/news")} style={{padding: 10, fontSize: 20, cursor: "pointer"}}>
-                <ComponentNavigation title={"Tin tức"} />
+                <ComponentNavigation title={"Tin tức"} icon={<BiNews />} />
               </div>
             </NavLink>
         </div>

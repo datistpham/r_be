@@ -13,6 +13,7 @@ import User from "../../../User/User";
 import { AppContext } from "../../../../App";
 import { useContext } from "react";
 import Category from "../../../Navigation/NavigationCategory";
+import  {AiFillBook } from "react-icons/ai"
 
 export default function Sidebar() {
   const { isOrderOnlyMenu }= useContext(AppContext)
@@ -62,7 +63,7 @@ export default function Sidebar() {
             }
             <NavLink to={"/staff/contact"} style={{textDecoration: "none", color: "unset"}} className={({isActive})=> isActive ? "active-link" : "no-active-link"}>
               <div onClick={()=> navigate("/staff/contact")} style={{padding: 10, fontSize: 20, cursor: "pointer"}}>
-                <ComponentNavigation title={"Yêu cầu đặt tiệc"} />
+                <ComponentNavigation title={"Yêu cầu đặt tiệc"} icon={<AiFillBook />} />
               </div>
             </NavLink>
             <NavLink to={"/staff/payment"} style={{textDecoration: "none", color: "unset"}} className={({isActive})=> isActive ? "active-link" : "no-active-link"}>

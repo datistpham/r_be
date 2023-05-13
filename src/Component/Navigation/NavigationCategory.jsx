@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import get_category from '../../api/get_category';
 import { useNavigate } from 'react-router-dom';
 import FoodOnDemand from './FoodOnDemand';
+import {AiOutlineMenu } from "react-icons/ai"
 
 export default function Category() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -31,7 +32,7 @@ export default function Category() {
   return (
     <div>
       <div onClick={handleClick} style={{padding: 10, fontSize: 20, cursor: "pointer"}}>
-          <ComponentNavigation title={"Thực đơn"} icon={<RoomServiceIcon />} />
+          <ComponentNavigation title={"Thực đơn"} icon={<AiOutlineMenu />} />
       </div>
       <Menu
         id="basic-menu"
