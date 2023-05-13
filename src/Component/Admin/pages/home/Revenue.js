@@ -7,6 +7,7 @@ import stats_range from '../../../../api/admin/stats/stats_range';
 import { Box } from '@mui/material';
 import _ from 'lodash';
 import { DataGrid } from "@material-ui/data-grid";
+import moment from 'moment';
 
 const Revenue = () => {
   const [data, setData]= useState([])
@@ -40,16 +41,44 @@ const Revenue = () => {
         flex: 1
     },
     {
+        field: "user_name",
+        headerName: "Người đặt",
+        width: 200, 
+        flex: 1
+    },
+    {
+        field: "time_booking",
+        headerName: "Thời gian đặt",
+        width: 200, 
+        flex: 1,
+        renderCell: (params)=> {
+            return <>{moment(params.row.time_created).format("HH:mm:ss DD-MM-YYYY")}</>
+        }
+    },
+    {
+        field: "time_paid",
+        headerName: "Thời gian thanh toán",
+        width: 200, 
+        flex: 1,
+        renderCell: (params)=> {
+            return <>{moment(params.row.time_paid).format("HH:mm:ss DD-MM-YYYY")}</>
+        }
+    },
+    {
         field: "revenue",
         headerName: "Doanh thu",
         width: 200, 
-        flex: 1
+        flex: 1,
+        
     },
     {
         field: "time_created",
         headerName: "Ngày",
         width: 200, 
-        flex: 1
+        flex: 1,
+        renderCell: (params)=> {
+            return <>{moment(params.row.time_created).format("DD-MM-YYYY")}</>
+        }
     }
   ]
 
@@ -63,14 +92,14 @@ const Revenue = () => {
                 <Button onClick={async ()=> {
                     try {
                         const result= await stats_date(date)
-                        const grouped = _.groupBy(result, item => item.time_created.slice(0, 10));
-                        const result1 = _.map(grouped, (group, key) => {
-                        const revenue = _.sumBy(group, 'revenue');
-                        return { revenue, time_created: key, id: group[0].id };
-                        });
+                        // const grouped = _.groupBy(result, item => item.time_created.slice(0, 10));
+                        // const result1 = _.map(grouped, (group, key) => {
+                        // const revenue = _.sumBy(group, 'revenue');
+                        // return { revenue, time_created: key, id: group[0].id };
+                        // });
                         // console.log(result1)
-                        setTotal(_.sumBy(result1, function(e) {return parseInt(e.revenue)}))
-                        return setData(result1)
+                        setTotal(_.sumBy(result, function(e) {return parseInt(e.revenue)}))
+                        return setData(result)
 
                     }
                     catch(error) {
@@ -87,13 +116,14 @@ const Revenue = () => {
                 <Button onClick={async ()=> {
                     try {
                         const result= await stats_month(month)
-                        const grouped = _.groupBy(result, item => item.time_created.slice(0, 10));
-                        const result1 = _.map(grouped, (group, key) => {
-                        const revenue = _.sumBy(group, 'revenue');
-                        return { revenue, time_created: key, id: group[0].id };
-                        });
+                        // const grouped = _.groupBy(result, item => item.time_created.slice(0, 10));
+                        // const result1 = _.map(grouped, (group, key) => {
+                        // const revenue = _.sumBy(group, 'revenue');
+                        // return { revenue, time_created: key, id: group[0].id };
+                        // });
                         // console.log(result1)
-                        return setData(result1)
+                        setTotal(_.sumBy(result, function(e) {return parseInt(e.revenue)}))
+                        return setData(result)
 
                     }
                     catch(error) {
@@ -110,13 +140,14 @@ const Revenue = () => {
                 <Button onClick={async ()=> {
                     try {
                         const result= await stats_year(year)
-                        const grouped = _.groupBy(result, item => item.time_created.slice(0, 10));
-                        const result1 = _.map(grouped, (group, key) => {
-                        const revenue = _.sumBy(group, 'revenue');
-                        return { revenue, time_created: key, id: group[0].id };
-                        });
+                        // const grouped = _.groupBy(result, item => item.time_created.slice(0, 10));
+                        // const result1 = _.map(grouped, (group, key) => {
+                        // const revenue = _.sumBy(group, 'revenue');
+                        // return { revenue, time_created: key, id: group[0].id };
+                        // });
                         // console.log(result1)
-                        return setData(result1)
+                        setTotal(_.sumBy(result, function(e) {return parseInt(e.revenue)}))
+                        return setData(result)
 
                     }
                     catch(error) {
@@ -133,13 +164,14 @@ const Revenue = () => {
                 <Button onClick={async ()=> {
                     try {
                         const result= await stats_range(range[0], range[1])
-                        const grouped = _.groupBy(result, item => item.time_created.slice(0, 10));
-                        const result1 = _.map(grouped, (group, key) => {
-                        const revenue = _.sumBy(group, 'revenue');
-                        return { revenue, time_created: key, id: group[0].id };
-                        });
+                        // const grouped = _.groupBy(result, item => item.time_created.slice(0, 10));
+                        // const result1 = _.map(grouped, (group, key) => {
+                        // const revenue = _.sumBy(group, 'revenue');
+                        // return { revenue, time_created: key, id: group[0].id };
+                        // });
                         // console.log(result1)
-                        return setData(result1)
+                        setTotal(_.sumBy(result, function(e) {return parseInt(e.revenue)}))
+                        return setData(result)
 
                     }
                     catch(error) {
