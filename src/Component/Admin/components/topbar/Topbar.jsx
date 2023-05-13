@@ -38,6 +38,7 @@ export default function Topbar(props) {
               'aria-labelledby': 'basic-button',
             }}
           >
+            <div style={{display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", gap: 10}}>
             {
               props?.is_admin=== true && 
             <InfoAdmin {...props} />
@@ -46,6 +47,7 @@ export default function Topbar(props) {
               handleClose()
               Logout()
             }}>Đăng xuất</MenuItem>
+            </div>
           </Menu>
         </div>
       </div>

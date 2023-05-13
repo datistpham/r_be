@@ -10,12 +10,17 @@ import get_detail_dish from "../../api/get_detail_dish";
 import { Image } from "antd";
 import { Box } from "@mui/material";
 import numberWithCommas from "../util/numberThousandSeparator";
+import swal from "sweetalert";
+import { AppContext } from "../../App";
+import Swal from "sweetalert2";
+import book_dish from "../../api/book/book_dish";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function DetailDish(props) {
+  const { auth, user, setOrderId, orderId } = React.useContext(AppContext);
   
   const [data, setData] = React.useState();
   React.useEffect(() => {
@@ -51,7 +56,48 @@ export default function DetailDish(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Đóng</Button>
-          <Button onClick={handleClose}>Đặt món</Button>
+          <Button onClick={async () => {
+                    handleClose()
+                      const { value: text } = await Swal.fire({
+                        input: 'text',
+                        inputLabel: "Số lương",
+                        inputPlaceholder: "Nhập số lượng món cần đặt",
+                        inputAttributes: {
+                          'aria-label': 'Type your message here'
+                        },  
+                        showCancelButton: true,
+                      });
+
+                      if (text) {
+                        console.log(text)
+                        if(typeof parseInt(text) !== "number") {
+                          return swal("Thông báo", "Số lượng không hợp lệ, vui lòng kiểm tra lại", "error")
+                        }
+                        if (auth === true) {
+                            try {
+                              const result = await book_dish(
+                                props?.dishId, parseInt(text), orderId
+                              ) 
+                              if(result?.status=== 200) {
+                                swal("Thông báo", "Đặt món thành công", "success")
+                              }
+                              else {
+                                swal("Thông báo", "Lỗi không xác định", "error")
+                              }
+                            }
+                            catch(e) {
+                              swal("Thông báo", "Lỗi không xác định", "error")
+                            }
+                          }
+                          else {
+                            swal("Thông báo", "Bạn cần đăng nhập để tiếp tục", "error")
+
+                          }
+                      }
+                      else {
+                        swal("Thông báo", "Bạn cần nhập số lượng món cần đặt", "error")
+                      }
+                    }}>Đặt món</Button>
         </DialogActions>
       </Dialog>
     </div>

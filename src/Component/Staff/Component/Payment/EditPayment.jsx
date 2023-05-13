@@ -59,7 +59,7 @@ export default function EditPayment(props) {
                     <TextField style={{width: 350}} label={"Email"} value={email} onChange={(e)=> setEmail(e.target.value)} />
                 </ListItem>
                 <ListItem>
-                <FormControl fullWidth>
+                <FormControl className={"wrap-ooo"} fullWidth>
                   <InputLabel id="demo-simple-select-label">Đặt cọc</InputLabel>
                   <Select
                     className={"wrap-mode-deposit"}
@@ -72,8 +72,10 @@ export default function EditPayment(props) {
                       return deposit=== 1 ? "Đã đặt cọc" : "Chưa đặt cọc"
                     }}
                   >
-                    <MenuItem className={"i-dep"} value={1}>Đã đặt cọc</MenuItem>
-                    <MenuItem className={"i-dep"} value={0}>Chưa đặt cọc</MenuItem>
+                    <div style={{display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", gap: 10}}>
+                    <MenuItem className={"i-dep"} style={{padding: 10}} value={1}>Đã đặt cọc</MenuItem>
+                    <MenuItem className={"i-dep"} style={{padding: 10}} value={0}>Chưa đặt cọc</MenuItem>
+                    </div>
                   </Select>
                 </FormControl>
               </ListItem>

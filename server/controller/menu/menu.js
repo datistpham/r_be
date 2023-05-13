@@ -29,7 +29,7 @@ const menu = {
     }),
     update: expressAsyncHandler(async (req, res)=> {
         try {
-            const [rows]= await connection.execute("UPDATE menu SET menu_name= ?, menu_description= ? WHERE menu_id= ?", [req.body.menu_name, req.body.menu_description, req.body.id])
+            const [rows]= await connection.execute("UPDATE menu SET menu_name= ?, menu_description= ?, menu_photo= ? WHERE menu_id= ?", [req.body.menu_name, req.body.menu_description, req.body?.image, req.body.id])
             return res.status(200).json({update: true})
         } catch (error) {
             return res.status(500).json(error)

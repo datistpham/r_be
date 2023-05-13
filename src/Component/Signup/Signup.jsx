@@ -7,6 +7,7 @@ import OtpInput from 'react-otp-input';
 import { Button } from '@mui/material'
 import verify_email from '../../api/verify_email'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import validateEmail from '../util/validateEmail'
 
 const Signup = () => {
   const [email, setEmail]= useState("")
@@ -59,7 +60,17 @@ const Signup = () => {
                                 e.preventDefault()
                                 console.log(validatePassword(password))
                                 if(validatePassword(password) === false ) {
-                                    swal("Thông báo", "Mật khẩu phải có ít nhất 8 ký tự gồm chữ hoa, chữ thường và chữ số")
+                                    return swal("Thông báo", "Mật khẩu phải có ít nhất 8 ký tự gồm chữ hoa, chữ thường và chữ số")
+                                }
+                                if(validateEmail(email)=== false) {
+                                    return swal("Thông báo", "Email không đúng định dạng, vui lòng thử lại", "error")
+
+                                }
+                                if(firstName?.length <= 0) {
+                                    return swal("Thông báo", "Họ không được để trống", "error")
+                                }
+                                if(lastName?.length <= 0) {
+                                    return swal("Thông báo", "Tên không được để trống", "error")
                                 }
                                 else {
 
@@ -113,6 +124,9 @@ const Signup = () => {
                             <br />
                             <div className={"c-flex-center"}>
                                 <Button onClick={async ()=> {
+                                    if(verifyCode.toString()?.length <= 0) {
+                                        return swal("Thông báo", "Mã xác thực không được để trống", "success")
+                                    }
                                     const result= await verify_email(email,password, firstName, lastName, verifyCode)
                                     if(result?.signup=== false ) {
                                         swal("Thông báo","Mã xác thực không đúng. Vui lòng thử lại", "error")

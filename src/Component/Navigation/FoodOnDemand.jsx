@@ -100,6 +100,27 @@ export default function FoodOnDemand(props) {
                   "error"
                 );
               }
+              if(dishDescription?.length <= 0) {
+                return swal(
+                  "Thông báo",
+                  "Mô tả món ăn không được để trống",
+                  "error"
+                );
+              }
+              if(dishAmount?.toString()?.length <=0 || !dishAmount) {
+                return swal(
+                  "Thông báo",
+                  "Số lượng món ăn không được để trống",
+                  "error"
+                );
+              }
+              if(dishPrice?.toString()?.length <=0 || !dishPrice) {
+                return swal(
+                  "Thông báo",
+                  "Giá món ăn không được để trống",
+                  "error"
+                );
+              }
               if (parseInt(dishAmount) < 0 || parseInt(dishAmount) === undefined) {
                 return swal(
                   "Thông báo",
@@ -113,7 +134,7 @@ export default function FoodOnDemand(props) {
                   "Giá món không hợp lệ, Vui lòng thử lại ",
                   "error"
                 );
-              } else {
+              } 
                 const result = await add_custom_dish(
                   orderId,
                   dishName,
@@ -124,7 +145,6 @@ export default function FoodOnDemand(props) {
                 swal("Thông báo", "Yêu cầu đặt món thành công", "success")
                   .then(() => handleClose())
                   .then(() => props?.handleClose());
-              }
             }}
           >
             Xác nhận

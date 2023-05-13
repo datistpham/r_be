@@ -55,3 +55,12 @@ code {
   justify-content: center;
   flex-direction: column;
 }
+
+.MuiList-root {
+  display: flex !important;
+  flex-direction: column
+}
+
+.swal2-modal, .swal2-popup {
+  z-index: 999999999 !important;
+}

@@ -14,6 +14,7 @@ const Revenue = () => {
   const [month, setMonth]= useState()
   const [year, setYear]= useState()
   const [range, setRange]= useState()
+  const [total, setTotal]= useState(0)
   const onChangeDate = (date, dateString) => {
     console.log(date, dateString);
     setDate(date.format("DD/MM/YYYY"))
@@ -68,6 +69,7 @@ const Revenue = () => {
                         return { revenue, time_created: key, id: group[0].id };
                         });
                         // console.log(result1)
+                        setTotal(_.sumBy(result1, function(e) {return parseInt(e.revenue)}))
                         return setData(result1)
 
                     }
@@ -150,17 +152,18 @@ const Revenue = () => {
         <div style={{height: 300, width: "100%"}}>
         <Box sx={{width: "100%", height: 300}}>
             <DataGrid
-            
-            rows={data}
-            disableSelectionOnClick
-            columns={columns}
-            pageSize={5}
-            pagination={true}
-            paginationMode="client"
-            autoHeight
+                rows={data}
+                disableSelectionOnClick
+                columns={columns}
+                pageSize={5}
+                pagination={true}
+                paginationMode="client"
+                autoHeight
                 disableExtendRowFullWidth
                 autoWidth
             />
+            <br />
+            <Box sx={{width: '100%', direction: "rtl"}}>Tổng doanh thu: <strong>{total+ "VNĐ" || "_"}</strong></Box>
         </Box>
         </div>
     </div>

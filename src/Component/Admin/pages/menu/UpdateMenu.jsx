@@ -11,6 +11,8 @@ import swal from "sweetalert";
 import { TextField } from "@mui/material";
 import { Button } from "antd";
 import update_menu from "../../../../api/menu/update_menu";
+import UploadImage from "../../../UploadImage/UploadImage";
+import upload_image from "../../../../api/upload_image";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -21,6 +23,7 @@ export default function UpdateMenu(props) {
   // eslint-disable-next-line
   const [id, setId] = React.useState(props?.id);
   const [menuName, setMenuName] = React.useState(props?.menu_name);
+  const [image, setImage]= React.useState(props?.menu_photo)
   const [menuDescription, setMenuDescription] = React.useState(
     props?.menu_description
   );
@@ -66,23 +69,44 @@ export default function UpdateMenu(props) {
             <div></div>
             <br />
             <div></div>
+            <UploadImage title={"Ảnh menu"} setImage={setImage} />
+            <div></div>
+            <br />
+            <div></div>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button
             type={"primary"}
             onClick={async () => {
-              const result = await update_menu(menuName, menuDescription, id);
-              if (result?.update === true) {
-                swal("Thông báo", "Cập nhật thành công", "success").then(() => {
-                  handleClose();
-                  setMenuName("");
-                  setMenuDescription("");
-                  props?.setChange((prev) => !prev);
-                });
+              if(image?.thumbUrl) {
+                const imageFinal= await upload_image(image?.thumbUrl)
+                const result = await update_menu(menuName, menuDescription, imageFinal?.img, id);
+                if (result?.update === true) {
+                  swal("Thông báo", "Cập nhật thành công", "success").then(() => {
+                    handleClose();
+                    setMenuName("");
+                    setMenuDescription("");
+                    props?.setChange((prev) => !prev);
+                  });
 
-              } else {
-                swal("Thông báo", "Lỗi không xác định", "error");
+                } else {
+                  swal("Thông báo", "Lỗi không xác định", "error");
+                }
+              }
+              else {
+                const result = await update_menu(menuName, menuDescription, image, id);
+                if (result?.update === true) {
+                  swal("Thông báo", "Cập nhật thành công", "success").then(() => {
+                    handleClose();
+                    setMenuName("");
+                    setMenuDescription("");
+                    props?.setChange((prev) => !prev);
+                  });
+
+                } else {
+                  swal("Thông báo", "Lỗi không xác định", "error");
+                }
               }
             }}
           >

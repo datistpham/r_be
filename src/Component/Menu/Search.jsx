@@ -12,9 +12,10 @@ export default function SearchItemMenu(props) {
     <Stack spacing={2} sx={{ width: 300 }}>
       <Autocomplete
         onChange={(e, value)=> {
-            setOpen(()=> true)
-            setDishId(value.dish_id)
+          setOpen(()=> true)
+          setDishId(value.dish_id)
         }}
+        
         freeSolo
         id="free-solo-2-demo"
         disableClearable
@@ -23,12 +24,12 @@ export default function SearchItemMenu(props) {
         renderInput={(params) => (
           <div>
             <TextField
-            {...params}
-            label={<><SearchIcon /> Tìm kiếm món ăn</>}
-            InputProps={{
-              ...params.InputProps,
-              type: 'search',
-            }}
+              {...params}
+              label={<><SearchIcon /> Tìm kiếm món ăn</>}
+              InputProps={{
+                ...params.InputProps,
+                type: 'search',
+              }}
           />
           </div>
         )}
