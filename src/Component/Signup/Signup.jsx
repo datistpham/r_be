@@ -60,7 +60,7 @@ const Signup = () => {
                                 e.preventDefault()
                                 console.log(validatePassword(password))
                                 if(validatePassword(password) === false ) {
-                                    return swal("Thông báo", "Mật khẩu phải có ít nhất 8 ký tự gồm chữ hoa, chữ thường và chữ số")
+                                    return swal("Thông báo", "Mật khẩu phải có ít nhất 8 ký tự gồm chữ hoa, chữ thường và chữ số", "error")
                                 }
                                 if(validateEmail(email)=== false) {
                                     return swal("Thông báo", "Email không đúng định dạng, vui lòng thử lại", "error")
@@ -129,7 +129,7 @@ const Signup = () => {
                             <div className={"c-flex-center"}>
                                 <Button onClick={async ()=> {
                                     if(verifyCode.toString()?.length <= 0) {
-                                        return swal("Thông báo", "Mã xác thực không được để trống", "success")
+                                        return swal("Thông báo", "Mã xác thực không được để trống", "error")
                                     }
                                     const result= await verify_email(email,password, firstName, lastName, verifyCode)
                                     if(result?.signup=== false ) {
